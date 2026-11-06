@@ -2,7 +2,7 @@ import { FlatList, Pressable, RefreshControl, StyleSheet, View } from 'react-nat
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Activity } from 'lucide-react-native';
-import { Card, ErrorState, Footer, StateView, Text } from '@/components';
+import { Card, refreshControl, ErrorState, Footer, Header, IconButton, StateView, Text } from '@/components';
 import { useAvisos } from '@/hooks';
 import { usePerfil } from '@/storage/perfil';
 import { colors, fonts, layout, radius, space } from '@/theme';
@@ -19,39 +19,27 @@ export default function AvisosScreen() {
 
   const header = (
     <View style={styles.header}>
-      <View style={styles.brandRow}>
-        <Pressable
-          onLongPress={() => router.push('/estado')}
-          delayLongPress={500}
-          accessibilityRole="header"
-          accessibilityLabel="CampusConectado"
-          style={styles.brand}
-        >
-          <View style={styles.logo} />
-          <Text variant="small" color={colors.tinta} style={styles.brandText}>
-            CampusConectado
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => router.push('/estado')}
-          accessibilityRole="button"
-          accessibilityLabel="Estado del servidor"
-          hitSlop={8}
-          style={styles.iconBtn}
-        >
-          <Activity size={24} strokeWidth={2} color={colors.tinta} />
-        </Pressable>
-      </View>
-      <Text variant="kicker" style={{ marginTop: space[4] }}>
-        {saludo}
-      </Text>
-      <Text variant="display" style={{ marginTop: space[1] }}>
-        Avisos del campus
-      </Text>
+      <Pressable
+        onLongPress={() => router.push('/estado')}
+        delayLongPress={600}
+        accessibilityLabel="CampusConectado"
+        style={styles.brand}
+      >
+        <View style={styles.logo} />
+        <Text variant="small" style={styles.brandText}>
+          CampusConectado
+        </Text>
+      </Pressable>
+      <Header
+        kicker={saludo}
+        title="Avisos del campus"
+        onLongPressTitle={() => router.push('/estado')}
+        right={<IconButton icon={Activity} onPress={() => router.push('/estado')} accessibilityLabel="Estado del servidor" />}
+      />
     </View>
   );
 
-  let empty: React.ReactElement | null = null;
+  let empty: React.ReactElement | undefined;
   if (isLoading) empty = <StateView kind="loading" skeletonCount={3} />;
   else if (isError) empty = <ErrorState error={error} onRetry={() => refetch()} />;
   else if (!data || data.length === 0)
@@ -86,26 +74,19 @@ export default function AvisosScreen() {
         )
       }
       ListFooterComponent={<Footer />}
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefetching && !isLoading}
-          onRefresh={() => refetch()}
-          tintColor={colors.rosa}
-          colors={[colors.rosa]}
-        />
-      }
+      refreshControl={refreshControl(isRefetching && !isLoading, () => {
+        refetch();
+      })}
     />
   );
 }
 
 const styles = StyleSheet.create({
   list: { flex: 1, backgroundColor: colors.marfil },
-  header: { marginBottom: space[4] },
-  brandRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  brand: { flexDirection: 'row', alignItems: 'center', gap: space[2], minHeight: 44 },
+  header: { marginBottom: space[1] },
+  brand: { flexDirection: 'row', alignItems: 'center', gap: space[2], minHeight: 36, marginBottom: space[3] },
   logo: { width: 14, height: 14, borderRadius: radius.sm, backgroundColor: colors.rosa },
   brandText: { fontFamily: fonts.sansBold, color: colors.tinta },
-  iconBtn: { width: 44, height: 44, alignItems: 'center', justifyContent: 'center' },
   highlightMsg: {
     marginTop: space[2],
     fontSize: 19,

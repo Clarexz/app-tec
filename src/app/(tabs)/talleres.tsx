@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ChevronRight, Clock, Search } from 'lucide-react-native';
-import { Banner, Button, Card, Chip, ErrorState, Footer, StateView, Text, TextField } from '@/components';
+import { Banner, refreshControl, Button, Card, Chip, ErrorState, Footer, StateView, Text, TextField } from '@/components';
 import { ApiError, api, mensajeDeError } from '@/api';
 import { queryClient } from '@/api/queryClient';
 import { qk, useTalleres } from '@/hooks';
@@ -90,7 +90,7 @@ export default function TalleresScreen() {
     </View>
   );
 
-  let empty: React.ReactElement | null = null;
+  let empty: React.ReactElement | undefined;
   if (isLoading) empty = <StateView kind="loading" skeletonCount={3} />;
   else if (isError) empty = <ErrorState error={error} onRetry={() => refetch()} />;
   else if (!data || data.length === 0)
@@ -128,14 +128,9 @@ export default function TalleresScreen() {
         </Card>
       )}
       ListFooterComponent={<Footer />}
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefetching && !isLoading}
-          onRefresh={() => refetch()}
-          tintColor={colors.rosa}
-          colors={[colors.rosa]}
-        />
-      }
+      refreshControl={refreshControl(isRefetching && !isLoading, () => {
+        refetch();
+      })}
     />
   );
 }
