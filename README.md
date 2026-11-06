@@ -128,19 +128,19 @@ Pruebas manuales en modo de datos de prueba, salvo que se indique lo contrario.
 
 | # | Prueba | Resultado esperado | Resultado |
 |---|---|---|---|
-| 1 | Abrir Avisos | Se muestran al menos 3 avisos | Pendiente |
-| 2 | Abrir Talleres | Se muestran al menos 3 talleres, cada uno con horario | Pendiente |
-| 3 | Buscar taller `1` | Abre el detalle del taller 1 | Pendiente |
-| 4 | Buscar taller `99` | Aparece "Ese taller no existe" | Pendiente |
-| 5 | Inscribir matrícula `A001`, nombre `Ana`, taller `2` | Mensaje de éxito | Pendiente |
-| 6 | Repetir la inscripción de la prueba 5 | Aparece "Ya estás inscrito" | Pendiente |
-| 7 | Tocar "Enviar sin validar (prueba)" con el formulario vacío | Aparece "Faltan datos" | Pendiente |
-| 8 | Inscribirme con taller `99` (escrito a mano) | Aparece "Ese taller no existe" | Pendiente |
-| 9 | En *Estado del servidor*, activar "Talleres no responde" e inscribirse | Error 503 con "Talleres no responde" | Pendiente |
-| 10 | Mis inscripciones con matrícula `A001` | Lista con nombre del taller y horario | Pendiente |
-| 11 | En *Estado del servidor*, activar "Sin red" e intentar consultar | "Sin conexión con el campus" y botón Reintentar | Pendiente |
-| 12 | Abrir *Estado del servidor* | Tres servicios con estado y tiempo de respuesta en ms | Pendiente |
-| 13 | Cerrar y volver a abrir la app | Matrícula y nombre precargados | Pendiente |
+| 1 | Abrir Avisos | Se muestran al menos 3 avisos | ✅ Pasa (web, datos de prueba) |
+| 2 | Abrir Talleres | Se muestran al menos 3 talleres, cada uno con horario | ✅ Pasa (web, datos de prueba) |
+| 3 | Buscar taller `1` | Abre el detalle del taller 1 | ✅ Pasa (web, datos de prueba) |
+| 4 | Buscar taller `99` | Aparece "Ese taller no existe" | ✅ Pasa (web, datos de prueba) |
+| 5 | Inscribir matrícula `A001`, nombre `Ana`, taller `2` | Mensaje de éxito | ✅ Pasa (web, datos de prueba) |
+| 6 | Repetir la inscripción de la prueba 5 | Aparece "Ya estás inscrito" | ✅ Pasa (web, datos de prueba) |
+| 7 | Tocar "Enviar sin validar (prueba)" con el formulario vacío | Aparece "Faltan datos" | ✅ Pasa (web, datos de prueba) |
+| 8 | Inscribirme con taller `99` (escrito a mano) | Aparece "Ese taller no existe" | ✅ Pasa (web, datos de prueba) |
+| 9 | En *Estado del servidor*, activar "Talleres no responde" e inscribirse | Error 503 con "Talleres no responde" | ✅ Pasa (web, datos de prueba) |
+| 10 | Mis inscripciones con matrícula `A001` | Lista con nombre del taller y horario | ✅ Pasa (web, datos de prueba) |
+| 11 | En *Estado del servidor*, activar "Sin red" e intentar consultar | "Sin conexión con el campus" y botón Reintentar | ✅ Pasa (web, datos de prueba) |
+| 12 | Abrir *Estado del servidor* | Tres servicios con estado y tiempo de respuesta en ms | ✅ Pasa (web, datos de prueba) |
+| 13 | Cerrar y volver a abrir la app | Matrícula y nombre precargados | ✅ Pasa (web, datos de prueba) |
 
 ## Documentación
 
