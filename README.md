@@ -197,3 +197,7 @@ Guarda el keystore y sus contraseñas en un lugar seguro y nunca lo subas al rep
 > **Advertencia:** sin keystore, el APK se firma con una llave de depuración. Se instala sin problema para una demo, pero no sirve para Google Play, y las actualizaciones solo se instalan si están firmadas con la misma llave. Configura el keystore antes de distribuir ampliamente.
 
 Google Play requiere AAB, no APK. Se puede agregar más adelante con `bundleRelease`.
+
+### Publicar un release sin tag (desde GitHub)
+
+En **Actions → Release → Run workflow**, escribe la versión (ej. `1.0.1`) y marca **publicar**. El workflow compila los dos APK, crea el tag `v1.0.1` y publica el release. Sin marcar *publicar*, solo deja los APK como artefactos de la ejecución (útil para probar).
