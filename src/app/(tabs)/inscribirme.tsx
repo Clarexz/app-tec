@@ -1,13 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ComponentRef } from 'react';
 import { TextInput, View } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import * as Haptics from 'expo-haptics';
 import { CircleCheck } from 'lucide-react-native';
 import { Banner, Button, Card, Screen, TallerPicker, Text, TextField } from '@/components';
-import { useInscribir, usePerfil, useTalleres, useTallerNombre } from '@/hooks';
+import { useInscribir, useTalleres, useTallerNombre } from '@/hooks';
 import { ApiError, mensajeDeError, mensajeExito } from '@/api';
 import { config, isMocked } from '@/config';
-import { guardarPerfil } from '@/storage/perfil';
+import { guardarPerfil, usePerfil } from '@/storage/perfil';
 import { colors, space } from '@/theme';
 
 export default function InscribirmeScreen() {
@@ -22,7 +22,7 @@ export default function InscribirmeScreen() {
   const [tallerId, setTallerId] = useState<number | undefined>(undefined);
   const [escribirNumero, setEscribirNumero] = useState(false);
   const [numeroTexto, setNumeroTexto] = useState('');
-  const nombreRef = useRef<TextInput>(null);
+  const nombreRef = useRef<ComponentRef<typeof TextInput>>(null);
   const prefilled = useRef(false);
 
   useEffect(() => {

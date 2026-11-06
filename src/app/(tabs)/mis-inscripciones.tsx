@@ -3,7 +3,8 @@ import { View } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Clock, Search } from 'lucide-react-native';
 import { Button, Card, Chip, ErrorState, Screen, StateView, Text, TextField } from '@/components';
-import { useInscripciones, usePerfil, useTalleres, useTallerNombre } from '@/hooks';
+import { useInscripciones, useTalleres, useTallerNombre } from '@/hooks';
+import { usePerfil } from '@/storage/perfil';
 import { colors, space } from '@/theme';
 
 export default function MisInscripcionesScreen() {

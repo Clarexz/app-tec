@@ -10,7 +10,7 @@ export interface TextFieldProps extends Omit<TextInputProps, 'style'> {
   error?: string;
   hint?: string;
   right?: ReactNode;
-  inputRef?: TextInputProps['ref'];
+  inputRef?: React.ComponentProps<typeof TextInput>['ref'];
 }
 
 export function TextField({ label, error, hint, right, inputRef, onFocus, onBlur, ...rest }: TextFieldProps) {

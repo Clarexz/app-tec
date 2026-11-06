@@ -41,10 +41,10 @@ export function mensajeDeError(err: unknown): MensajeUsuario {
       };
     if (err.status === 400)
       return { titulo: 'Faltan datos', texto: 'Revisa tu matrícula, tu nombre y el taller, y vuelve a intentarlo.' };
-    if (err.status === 404 && err.context === 'taller')
+    if (err.status === 404 && (err.context === 'taller' || err.context === 'inscripcion'))
       return { titulo: 'Ese taller no existe', texto: 'Revisa el número del taller o elige uno de la lista.' };
     if (err.status === 409)
-      return { titulo: 'Ya estás inscrito', texto: 'Ya tienes lugar en este taller. Lo ves en *Mis inscripciones*.' };
+      return { titulo: 'Ya estás inscrito', texto: 'Ya tienes lugar en este taller. Lo ves en Mis inscripciones.' };
     if (err.status === 503)
       return { titulo: 'Talleres no responde', texto: 'Algo no salió de nuestro lado. Intenta de nuevo en un momento.' };
     if (err.status >= 500)
