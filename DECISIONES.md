@@ -17,3 +17,4 @@ Registro de decisiones de CampusConectado y su motivo.
 13. **Perfil de EAS `real` adicional:** APK que apunta al servidor real, para la demo.
 14. **No hay cancelar inscripción,** porque el servidor no lo ofrece.
 15. **Avisos sin detalle:** no existe `GET /avisos/{id}`, así que la app solo usa la lista.
+16. **Releases con Gradle en GitHub Actions** en lugar de EAS, para no depender de una cuenta de Expo ni de créditos. Los perfiles de EAS siguen disponibles.

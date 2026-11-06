@@ -1,0 +1,131 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versión (sin v)'
+        required: false
+        default: '0.0.0-dev'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: APK ${{ matrix.variant }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: pruebas
+            use_mocks: 'true'
+            api_host: 'http://2.24.29.189'
+            mock_services: ''
+          - variant: servidor
+            use_mocks: 'false'
+            api_host: ${{ vars.API_HOST || 'http://2.24.29.189' }}
+            mock_services: ${{ vars.MOCK_SERVICES || 'talleres' }}
+    env:
+      EXPO_PUBLIC_USE_MOCKS: ${{ matrix.use_mocks }}
+      EXPO_PUBLIC_API_HOST: ${{ matrix.api_host }}
+      EXPO_PUBLIC_MOCK_SERVICES: ${{ matrix.mock_services }}
+      ANDROID_VERSION_CODE: ${{ github.run_number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - run: npm ci
+
+      - name: Calcular versión
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF_NAME#v}"
+          else
+            VERSION="${{ inputs.version }}"
+          fi
+          VERSION="${VERSION:-0.0.0-dev}"
+          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "APP_VERSION=$VERSION" >> "$GITHUB_ENV"
+
+      - name: Preparar keystore (opcional)
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/release.keystore"
+            {
+              echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/release.keystore"
+              echo "ANDROID_KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD"
+              echo "ANDROID_KEY_ALIAS=$KEY_ALIAS"
+              echo "ANDROID_KEY_PASSWORD=$KEY_PASSWORD"
+            } >> "$GITHUB_ENV"
+            echo "Firmando con keystore propio."
+          else
+            echo "::warning::Sin keystore: el APK se firma con la llave debug (solo demo)."
+          fi
+
+      - name: Prebuild Android
+        run: npx expo prebuild -p android --no-install
+
+      - name: Compilar APK release
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon -PreactNativeArchitectures=arm64-v8a,armeabi-v7a
+
+      - name: Renombrar APK
+        run: mv android/app/build/outputs/apk/release/app-release.apk "CampusConectado-${VERSION}-${{ matrix.variant }}.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk-${{ matrix.variant }}
+          path: CampusConectado-*.apk
+          if-no-files-found: error
+
+  release:
+    name: Publicar release
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: apks
+          pattern: apk-*
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: apks/*.apk
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          body: |
+            ## APKs de CampusConectado
+
+            - `CampusConectado-X-pruebas.apk`: datos de prueba, ideal para demo sin servidor.
+            - `CampusConectado-X-servidor.apk`: conectado a Avisos e Inscripciones reales; Talleres sigue con datos de prueba hasta que el Equipo 3 lo publique.
+
+            (X es la versión de este release.)

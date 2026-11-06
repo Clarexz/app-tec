@@ -147,3 +147,53 @@ Pruebas manuales en modo de datos de prueba, salvo que se indique lo contrario.
 - [`docs/ESPECIFICACION.md`](docs/ESPECIFICACION.md): especificación del producto, pantallas, mensajes y estilo.
 - [`CONTRATO.md`](CONTRATO.md): contrato interno entre módulos (capa de datos, componentes y pantallas).
 - [`DECISIONES.md`](DECISIONES.md): decisiones técnicas tomadas y su motivo.
+
+## Releases con GitHub Actions
+
+Los APK se compilan con Gradle en GitHub Actions (no hace falta cuenta de Expo).
+
+### Cómo hacer un release
+
+Crea la etiqueta con la versión:
+
+```bash
+git tag v1.0.0
+```
+
+Y súbela a GitHub:
+
+```bash
+git push origin v1.0.0
+```
+
+El workflow `Release` compila dos APK y los publica en la página de Releases. También puedes lanzarlo a mano desde la pestaña Actions (`workflow_dispatch`); en ese caso solo se generan los APK como artefactos, sin publicar release. Si la etiqueta lleva guion (por ejemplo `v1.0.0-rc1`), el release se marca como prerelease.
+
+### Los dos APK
+
+- `CampusConectado-X-pruebas.apk`: datos de prueba, ideal para demo sin servidor.
+- `CampusConectado-X-servidor.apk`: conectado a Avisos e Inscripciones reales; Talleres sigue con datos de prueba hasta que el Equipo 3 lo publique.
+
+### Firma (opcional)
+
+En *Settings > Secrets and variables > Actions* puedes definir:
+
+- Secrets: `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`.
+- Variables: `API_HOST` (por defecto `http://2.24.29.189`) y `MOCK_SERVICES` (por defecto `talleres`).
+
+Para generar un keystore:
+
+```bash
+keytool -genkeypair -v -storetype PKCS12 -keystore release.keystore -alias campus -keyalg RSA -keysize 2048 -validity 10000
+```
+
+Y para convertirlo a base64 (el resultado es el valor de `ANDROID_KEYSTORE_BASE64`):
+
+```bash
+base64 -w0 release.keystore
+```
+
+Guarda el keystore y sus contraseñas en un lugar seguro y nunca lo subas al repositorio.
+
+> **Advertencia:** sin keystore, el APK se firma con una llave de depuración. Se instala sin problema para una demo, pero no sirve para Google Play, y las actualizaciones solo se instalan si están firmadas con la misma llave. Configura el keystore antes de distribuir ampliamente.
+
+Google Play requiere AAB, no APK. Se puede agregar más adelante con `bundleRelease`.
