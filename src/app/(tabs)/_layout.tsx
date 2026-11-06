@@ -38,6 +38,8 @@ export default function TabsLayout() {
         name="mis-inscripciones"
         options={{
           title: 'Mis inscripciones',
+          tabBarLabel: 'Inscripciones',
+          tabBarAccessibilityLabel: 'Mis inscripciones',
           tabBarIcon: ({ color }) => <ClipboardList color={color} size={24} strokeWidth={2} />,
         }}
       />
