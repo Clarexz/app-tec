@@ -45,8 +45,19 @@ export function useInscribir(): UseMutationResult<Inscripcion, ApiError, NuevaIn
   const qc = useQueryClient();
   return useMutation<Inscripcion, ApiError, NuevaInscripcion>({
     mutationFn: (n) => api.inscribir({ ...n, matricula: normMatricula(n.matricula), nombre: n.nombre.trim() }),
-    onSuccess: (_d, n) => {
-      qc.invalidateQueries({ queryKey: qk.inscripciones(normMatricula(n.matricula)) });
+    onSuccess: (nueva, n) => {
+      const key = qk.inscripciones(normMatricula(n.matricula));
+      // Actualiza la lista al instante (badges "Ya inscrito", Mis inscripciones) y luego confirma con el servidor.
+      qc.setQueryData<Inscripcion[]>(key, (prev) =>
+        prev && !prev.some((i) => i.id === nueva.id) ? [...prev, nueva] : prev,
+      );
+      void qc.invalidateQueries({ queryKey: key });
+    },
+    onError: (err, n) => {
+      // 409: ya estaba inscrito; la lista local puede estar desactualizada.
+      if (err instanceof ApiError && err.status === 409) {
+        void qc.invalidateQueries({ queryKey: qk.inscripciones(normMatricula(n.matricula)) });
+      }
     },
   });
 }

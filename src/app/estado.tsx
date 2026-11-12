@@ -1,123 +1,74 @@
-import { Switch, View } from 'react-native';
-import { RefreshCw } from 'lucide-react-native';
-import { Button, Card, Chip, Footer, Screen, StatusDot, Text } from '@/components';
+import { StyleSheet, View } from 'react-native';
+import { RefreshCw, Server } from 'lucide-react-native';
+import { Button, Card, Chip, Footer, Screen, Skeleton, StatusDot, Text } from '@/components';
 import { useSalud } from '@/hooks';
+import type { SaludResultado } from '@/api';
 import { config } from '@/config';
-import { queryClient } from '@/api/queryClient';
-import { useMockFlags, type MockFlags } from '@/api/mock/flags';
-import { colors, space } from '@/theme';
+import { colors, fonts, space } from '@/theme';
+import type { Servicio } from '@/types/api';
 
-const SIMULACIONES: { k: keyof MockFlags; label: string }[] = [
-  { k: 'fail503', label: 'Talleres no responde (503) al inscribirte' },
-  { k: 'offline', label: 'Sin red' },
-  { k: 'slow', label: 'Latencia alta, 3 s' },
-];
+const SERVICIOS: Servicio[] = ['avisos', 'talleres', 'inscripciones'];
 
-const NOMBRES: Record<string, string> = {
+const NOMBRES: Record<Servicio, string> = {
   avisos: 'Avisos',
   talleres: 'Talleres',
   inscripciones: 'Inscripciones',
 };
 
+const dos = (n: number) => String(n).padStart(2, '0');
+function hora(ts: number): string {
+  const d = new Date(ts);
+  return `${dos(d.getHours())}:${dos(d.getMinutes())}:${dos(d.getSeconds())}`;
+}
+
 export default function EstadoScreen() {
-  const { data, isFetching, refetch } = useSalud();
-  const [flags, setFlag] = useMockFlags();
+  // No depende de la sesión: se abre también desde el inicio de sesión.
+  const { data, isFetching, isPending, refetch, dataUpdatedAt } = useSalud();
+  const revisar = () => void refetch();
 
-  const hayMock = config.useMocks || config.mockServices.length > 0;
-  const todoMock = config.useMocks;
-  const enPrueba = config.mockServices.map((s) => NOMBRES[s] ?? s).join(', ');
-
-  function cambiar(k: keyof MockFlags, v: boolean) {
-    setFlag(k, v);
-    if (k === 'offline') queryClient.invalidateQueries();
-  }
+  const enLinea = data?.filter((s) => s.ok).length ?? 0;
+  const resumen = isPending
+    ? 'Revisando servicios…'
+    : enLinea === SERVICIOS.length
+      ? 'Todo en línea'
+      : enLinea === 0
+        ? 'Ningún servicio responde'
+        : `${enLinea} de ${SERVICIOS.length} en línea`;
 
   return (
-    <Screen
-      scroll
-      refreshing={isFetching}
-      onRefresh={() => {
-        refetch();
-      }}
-      footer={undefined}
-    >
-      <View style={{ gap: space[3], paddingTop: space[2], paddingBottom: space[6] }}>
+    <Screen scroll refreshing={isFetching && !isPending} onRefresh={revisar}>
+      <View style={styles.page}>
         <Card variant="secondary">
-          <Text variant="kicker">Configuración</Text>
-          <Text style={{ marginTop: space[2] }}>
-            <Text variant="bodyStrong">Host: </Text>
-            {config.host}
+          <View style={styles.hostRow}>
+            <Server size={22} strokeWidth={2} color={colors.tinta} />
+            <View style={styles.flex}>
+              <Text variant="kicker">Servidor</Text>
+              <Text variant="bodyStrong" selectable>{config.host}</Text>
+            </View>
+          </View>
+          <View style={styles.resumenRow} accessibilityLiveRegion="polite">
+            <StatusDot ok={isPending ? null : enLinea === SERVICIOS.length} />
+            <Text variant="bodyStrong" style={styles.flex}>{resumen}</Text>
+          </View>
+          <Text variant="small" style={{ marginTop: space[1] }}>
+            {dataUpdatedAt > 0 ? `Última revisión: ${hora(dataUpdatedAt)}` : 'Aún sin revisar'}
           </Text>
-          <Text>
-            <Text variant="bodyStrong">Modo: </Text>
-            {config.useMocks ? 'Datos de prueba' : 'Servidor real'}
-          </Text>
-          {!todoMock && config.mockServices.length > 0 ? (
-            <Text>
-              <Text variant="bodyStrong">En prueba: </Text>
-              {enPrueba.toLowerCase()}
-            </Text>
-          ) : null}
         </Card>
 
-        {(data ?? []).map((s) => (
-          <Card key={s.servicio}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-              <Text variant="h3">{NOMBRES[s.servicio] ?? s.servicio}</Text>
-              <Text variant="small">{`:${config.ports[s.servicio]}`}</Text>
-            </View>
-            <Text variant="small" style={{ marginTop: space[1] }}>
-              {s.url}
-            </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2], marginTop: space[3] }}>
-              <StatusDot ok={s.ok} />
-              <Text variant="bodyStrong" style={{ flex: 1 }}>
-                {s.ok ? 'En línea' : 'Sin respuesta'}
-              </Text>
-              <Text variant="small">{`${s.ms} ms`}</Text>
-            </View>
-            {s.mock ? (
-              <View style={{ flexDirection: 'row', marginTop: space[3] }}>
-                <Chip label="Datos de prueba" tone="hueso" />
-              </View>
-            ) : null}
-          </Card>
-        ))}
-        {!data ? <StatusRow /> : null}
+        {data
+          ? SERVICIOS.map((s) => {
+              const r = data.find((x) => x.servicio === s);
+              return r ? <ServicioCard key={s} r={r} revisando={isFetching} /> : null;
+            })
+          : SERVICIOS.map((s) => <ServicioCargando key={s} servicio={s} />)}
 
         <Button
           title="Volver a revisar"
           variant="secondary"
           icon={RefreshCw}
-          onPress={() => {
-            refetch();
-          }}
+          onPress={revisar}
           loading={isFetching}
         />
-
-        {hayMock ? (
-          <Card variant="secondary" style={{ marginTop: space[3] }}>
-            <Text variant="h3">Simulación</Text>
-            {SIMULACIONES.map(({ k, label }) => (
-              <View
-                key={k}
-                style={{ flexDirection: 'row', alignItems: 'center', gap: space[3], marginTop: space[3] }}
-              >
-                <Text style={{ flex: 1 }}>{label}</Text>
-                <Switch
-                  value={flags[k]}
-                  onValueChange={(v) => cambiar(k, v)}
-                  trackColor={{ false: colors.borde, true: colors.rosa }}
-                  thumbColor={colors.blanco}
-                  accessibilityLabel={label}
-                />
-              </View>
-            ))}
-            <Text variant="small" style={{ marginTop: space[3] }}>
-              Solo afecta a los servicios con datos de prueba.
-            </Text>
-          </Card>
-        ) : null}
 
         <Footer />
         <Text variant="small" center>
@@ -128,13 +79,61 @@ export default function EstadoScreen() {
   );
 }
 
-function StatusRow() {
+function ServicioCard({ r, revisando }: { r: SaludResultado; revisando: boolean }) {
+  const nombre = NOMBRES[r.servicio];
+  const estado = r.ok ? 'En línea' : 'Sin respuesta';
   return (
     <Card>
-      <View style={{ flexDirection: 'row', alignItems: 'center', gap: space[2] }}>
-        <StatusDot ok={null} />
-        <Text>Revisando servicios…</Text>
+      <View
+        accessible
+        accessibilityLabel={`${nombre}, puerto ${config.ports[r.servicio]}, ${estado}, ${r.ms} milisegundos`}
+      >
+        <View style={styles.tituloRow}>
+          <Text variant="h3" style={styles.flex}>{nombre}</Text>
+          <Chip label={`:${config.ports[r.servicio]}`} tone="hueso" />
+        </View>
+        <Text variant="small" selectable numberOfLines={1} style={{ marginTop: space[1] }}>
+          {r.url}
+        </Text>
+        <View style={styles.estadoRow}>
+          <StatusDot ok={revisando ? null : r.ok} />
+          <Text variant="bodyStrong" style={styles.flex} color={r.ok ? colors.tinta : colors.error}>
+            {estado}
+          </Text>
+          <Text style={styles.ms}>{`${r.ms} ms`}</Text>
+        </View>
+        {!r.ok && r.error ? (
+          <Text variant="small" style={{ marginTop: space[1] }}>{r.error}</Text>
+        ) : null}
       </View>
     </Card>
   );
 }
+
+function ServicioCargando({ servicio }: { servicio: Servicio }) {
+  return (
+    <Card>
+      <View style={styles.tituloRow}>
+        <Text variant="h3" style={styles.flex}>{NOMBRES[servicio]}</Text>
+        <Chip label={`:${config.ports[servicio]}`} tone="hueso" />
+      </View>
+      <Text variant="small" numberOfLines={1} style={{ marginTop: space[1] }}>
+        {config.urls[servicio]}
+      </Text>
+      <View style={styles.estadoRow}>
+        <StatusDot ok={null} />
+        <Skeleton height={16} width="40%" />
+      </View>
+    </Card>
+  );
+}
+
+const styles = StyleSheet.create({
+  flex: { flex: 1 },
+  page: { gap: space[3], paddingTop: space[2], paddingBottom: space[6] },
+  hostRow: { flexDirection: 'row', alignItems: 'center', gap: space[3] },
+  resumenRow: { flexDirection: 'row', alignItems: 'center', gap: space[2], marginTop: space[3] },
+  tituloRow: { flexDirection: 'row', alignItems: 'center', gap: space[2] },
+  estadoRow: { flexDirection: 'row', alignItems: 'center', gap: space[2], marginTop: space[3] },
+  ms: { fontFamily: fonts.sansBold, fontSize: 14, lineHeight: 20, color: colors.tinta },
+});
