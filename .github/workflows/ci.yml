@@ -19,6 +19,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Lint
+        run: npx expo lint
       - name: Typecheck
         run: npx tsc --noEmit
       - name: Expo Doctor
