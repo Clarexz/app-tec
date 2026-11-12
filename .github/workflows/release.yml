@@ -31,18 +31,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - variant: pruebas
-            use_mocks: 'true'
-            api_host: 'http://2.24.29.189'
-            mock_services: ''
-          - variant: servidor
-            use_mocks: 'false'
-            api_host: ${{ vars.API_HOST || 'http://2.24.29.189' }}
-            mock_services: ${{ vars.MOCK_SERVICES || 'talleres' }}
+          - variant: android
     env:
-      EXPO_PUBLIC_USE_MOCKS: ${{ matrix.use_mocks }}
-      EXPO_PUBLIC_API_HOST: ${{ matrix.api_host }}
-      EXPO_PUBLIC_MOCK_SERVICES: ${{ matrix.mock_services }}
+      EXPO_PUBLIC_API_HOST: ${{ vars.API_HOST || 'http://2.24.29.189' }}
       ANDROID_VERSION_CODE: ${{ github.run_number }}
     steps:
       - uses: actions/checkout@v5

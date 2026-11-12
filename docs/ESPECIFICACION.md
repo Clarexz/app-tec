@@ -1,20 +1,25 @@
 # CampusConectado — especificación resumida (fuente de verdad para el equipo)
 
-App Android (Expo + RN + TS + Expo Router) para alumnos del TecNM Campus Reynosa: ven **avisos**, consultan **talleres**, se **inscriben** y revisan **mis inscripciones**. Hecha por Ravyn Studio. Datos ficticios, sin login.
+App Android (Expo + RN + TS + Expo Router) para alumnos del TecNM Campus Reynosa: ven **avisos**, consultan **talleres**, se **inscriben** y revisan **mis inscripciones**. Hecha por Ravyn Studio. Cada alumno inicia sesión con su número de control y contraseña.
 
-## Backend real (probado 2026-11-06)
-HTTP plano, IP `2.24.29.189`, sin auth.
-| Servicio | Puerto | Estado | Rutas |
-|---|---|---|---|
-| Avisos | 30001 | ✅ | `GET /salud` → `{"estado":"ok"}`, `GET /avisos` → `[{id,titulo,mensaje}]` (no existe `/avisos/{id}`) |
-| Talleres | 30002 | ❌ no desplegado | esperado `GET /talleres`, `GET /talleres/{id}` (200/404). Formato por definir → se sigue usando mock |
-| Inscripciones | 30003 | ✅ | `POST /inscripciones` → 201 `{id,matricula,nombre,taller_id}` · 400/404/409/503 con `{"error":"..."}`; `GET /inscripciones?matricula=X` → `[]` o lista; sin matricula → 400 |
-Hoy inscribirse contra el real siempre da 503 (Talleres no existe).
+## Backend real
+HTTP plano, IP `2.24.29.189`. Los tres servicios están desplegados y la app ya no usa datos de prueba.
+| Servicio | Puerto | Rutas |
+|---|---|---|
+| Avisos | 30001 | `GET /salud` → `{"estado":"ok"}`, `GET /avisos` → `[{id,titulo,mensaje}]` (no existe `/avisos/{id}`) |
+| Talleres | 30002 | `GET /talleres` → `[{id,nombre,horario}]`, `GET /talleres/{id}` (200/404) |
+| Inscripciones | 30003 | `POST /inscripciones` → 201 `{id,matricula,nombre,taller_id}` · 400/404/409/503 con `{"error":"..."}`; `GET /inscripciones?matricula=X` → `[]` o lista |
+
+## Sesión
+- Login con **No. de control** (8 dígitos; el servidor lo llama `matricula`) y **contraseña** = 4 primeras letras de la CURP.
+- Temporal: no hay servicio de login; se valida en `src/auth/cuentas.ts` (cuenta `22580076` / `MACB`).
+- Rutas protegidas con `Stack.Protected`: sin sesión solo existen `login` y `estado`.
+- La primera vez se pide el nombre completo (se usa en las inscripciones). *Mi cuenta* (`/perfil`) permite cambiarlo y cerrar sesión.
 
 ## Mensajes por código (§2.3)
 | Caso | Título | Texto |
 |---|---|---|
-| 400 | Faltan datos | Revisa tu matrícula, tu nombre y el taller, y vuelve a intentarlo. |
+| 400 | Faltan datos | Revisa tu número de control, tu nombre y el taller, y vuelve a intentarlo. |
 | 404 (taller) | Ese taller no existe | Revisa el número del taller o elige uno de la lista. |
 | 409 | Ya estás inscrito | Ya tienes lugar en este taller. Lo ves en *Mis inscripciones*. |
 | 503 | Talleres no responde | Algo no salió de nuestro lado. Intenta de nuevo en un momento. |

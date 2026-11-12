@@ -1,1 +1,13 @@
-{"cli":{"appVersionSource":"remote"},"build":{"preview":{"android":{"buildType":"apk"},"env":{"EXPO_PUBLIC_USE_MOCKS":"true"}},"real":{"android":{"buildType":"apk"},"env":{"EXPO_PUBLIC_USE_MOCKS":"false","EXPO_PUBLIC_API_HOST":"http://2.24.29.189","EXPO_PUBLIC_MOCK_SERVICES":"talleres"}},"production":{"android":{"buildType":"app-bundle"},"env":{"EXPO_PUBLIC_USE_MOCKS":"false","EXPO_PUBLIC_API_HOST":"http://2.24.29.189","EXPO_PUBLIC_MOCK_SERVICES":"talleres"}}}}
+{
+  "cli": { "appVersionSource": "remote" },
+  "build": {
+    "preview": {
+      "android": { "buildType": "apk" },
+      "env": { "EXPO_PUBLIC_API_HOST": "http://2.24.29.189" }
+    },
+    "production": {
+      "android": { "buildType": "app-bundle" },
+      "env": { "EXPO_PUBLIC_API_HOST": "http://2.24.29.189" }
+    }
+  }
+}
