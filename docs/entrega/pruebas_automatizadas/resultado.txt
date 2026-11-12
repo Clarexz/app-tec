@@ -1,0 +1,17 @@
+urls={"avisos":"http://localhost:30001","talleres":"http://localhost:30002","inscripciones":"http://localhost:30003"} timeoutMs=8000
+P1 avisos => OK Bienvenida, Inicio de talleres, Inscripciones
+P2 talleres => OK #1 Programación en Python (Lunes y Miércoles 10:00 - 12:00) | #2 Diseño UI/UX Móvil (Martes y Jueves 14:00 - 16:00) | #3 Fundamentos de Kubernetes y DevOps (Viernes 08:00 - 12:00)
+P3 taller 1 => OK Programación en Python
+P4 taller 999 => status 404 → "Ese taller no existe" / "Revisa el número del taller o elige uno de la lista." | detalle: Taller no encontrado (2 ms)
+P5 inscribir 21580001 / Luis Pérez / taller 2 => OK {"id":1,"matricula":"21580001","nombre":"Luis Pérez","taller_id":2} → Te esperamos en Diseño UI/UX Móvil, Martes y Jueves 14:00 - 16:00.
+P6 repetir => status 409 → "Ya estás inscrito" / "Ya tienes lugar en este taller. Lo ves en Mis inscripciones." | detalle: El alumno ya se encuentra inscrito en este taller (4 ms)
+P7 taller 999 al inscribir => status 404 → "Ese taller no existe" / "Revisa el número del taller o elige uno de la lista." | detalle: El taller especificado no existe (4 ms)
+P8 400 servidor (cuerpo sin llaves) => status 400 → "Faltan datos" / "Revisa tu número de control, tu nombre y el taller, y vuelve a intentarlo." | detalle: Faltan campos obligatorios (2 ms)
+P9 mis inscripciones 21580001 => OK [{"id":1,"matricula":"21580001","nombre":"Luis Pérez","taller_id":2}]
+P10 mis inscripciones 99999999 => OK []
+P12 salud => OK avisos:En línea:1ms talleres:En línea:2ms inscripciones:En línea:1ms
+P503 talleres caído → inscribir => status 503 → "Talleres no responde" / "Algo no salió de nuestro lado. Intenta de nuevo en un momento." | detalle: El servicio de talleres no está disponible (5 ms)
+P503b salud talleres caído => OK {"servicio":"talleres","ok":false,"ms":4,"url":"http://localhost:30002","error":"Sin conexión"}
+P404html ruta inexistente avisos (HTML) => status 404 → "Algo no salió" / "Intenta de nuevo en un momento." (1 ms)
+PTO timeout (servidor tarda 10 s) => status 0 → "Sin conexión con el campus" / "No pudimos llegar al servidor. Revisa tu internet e intenta de nuevo." (8002 ms)
+PRED puerto sin servicio => status 0 → "Sin conexión con el campus" / "No pudimos llegar al servidor. Revisa tu internet e intenta de nuevo." (2 ms)

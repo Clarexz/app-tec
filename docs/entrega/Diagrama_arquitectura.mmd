@@ -1,0 +1,39 @@
+%% CampusConectado: arquitectura de despliegue (datos ficticios; la IP es de documentación)
+flowchart LR
+  subgraph CEL["Celular del alumno (Android)"]
+    APP["App CampusConectado<br/>Expo SDK 58 · React Native 0.88<br/>HTTP plano (cleartext)"]
+  end
+
+  INTERNET(("Internet"))
+
+  subgraph VPS["VPS · Ubuntu 24.04 · IP pública 203.0.113.10 (ficticia)"]
+    FW["Firewall<br/>abre 30001–30003/TCP"]
+    subgraph K3S["Clúster K3s (un nodo)"]
+      subgraph NS2["namespace equipo2"]
+        NP1["NodePort 30001"] --> S1["Service avisos"] --> P1["Pod avisos<br/>Flask · Python 3.12"]
+      end
+      subgraph NS3["namespace equipo3"]
+        NP2["NodePort 30002"] --> S2["Service talleres"] --> P2["Pod talleres<br/>Flask · Python 3.12"]
+      end
+      subgraph NS4["namespace equipo4"]
+        NP3["NodePort 30003"] --> S3["Service inscripciones"] --> P3["Pod inscripciones<br/>Flask · Python 3.12"]
+        P3 --> PVC[("PVC<br/>SQLite inscripciones.db")]
+      end
+    end
+  end
+
+  APP -- "GET /avisos · /salud" --> INTERNET
+  APP -- "GET /talleres · /talleres/{id}" --> INTERNET
+  APP -- "POST /inscripciones<br/>GET /inscripciones?matricula=" --> INTERNET
+  INTERNET --> FW
+  FW -- ":30001" --> NP1
+  FW -- ":30002" --> NP2
+  FW -- ":30003" --> NP3
+  P3 -. "GET /talleres/{id}<br/>DNS interno: talleres.equipo3.svc.cluster.local<br/>timeout 3 s" .-> S2
+
+  classDef app fill:#FF5C8A,stroke:#141414,color:#FFF6E6;
+  classDef svc fill:#FFF6E6,stroke:#141414,color:#141414;
+  classDef db fill:#FFD23F,stroke:#141414,color:#141414;
+  class APP app;
+  class S1,S2,S3,NP1,NP2,NP3,FW svc;
+  class PVC db;

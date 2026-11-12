@@ -1,0 +1,48 @@
+%% CampusConectado: secuencia de "registrar inscripción"
+sequenceDiagram
+  autonumber
+  actor A as Alumno
+  participant APP as App (Inscribirme)
+  participant I as Inscripciones :30003<br/>(equipo4)
+  participant T as Talleres<br/>(equipo3, DNS interno)
+  participant DB as SQLite (PVC)
+
+  A->>APP: Elige taller y toca "Inscribirme"
+  APP->>APP: Valida: No. de control, nombre (trim, mayúsculas) y taller entero > 0
+  alt Datos incompletos
+    APP-->>A: Botón deshabilitado / "Faltan datos" (no se envía)
+  else Datos válidos
+    APP->>I: POST /inscripciones<br/>Content-Type: application/json<br/>{matricula, nombre, taller_id}
+    Note over APP: Spinner "Registrando…"<br/>timeout de 8 s
+    alt Faltan llaves o JSON inválido
+      I-->>APP: 400 {"error":"Faltan campos obligatorios"}
+      APP-->>A: "Faltan datos"
+    else Llaves completas
+      I->>T: GET /talleres/{taller_id} (timeout 3 s)
+      alt Talleres no responde o falla
+        T--xI: sin respuesta / código distinto de 200 o 404
+        I-->>APP: 503 {"error":"El servicio de talleres no está disponible"}
+        APP-->>A: "Talleres no responde"
+      else Taller no existe
+        T-->>I: 404 {"error":"Taller no encontrado"}
+        I-->>APP: 404 {"error":"El taller especificado no existe"}
+        APP-->>A: "Ese taller no existe"
+      else Taller existe
+        T-->>I: 200 {id, nombre, horario}
+        I->>DB: INSERT (matricula, nombre, taller_id)
+        alt Ya existe (UNIQUE matricula + taller)
+          DB-->>I: IntegrityError
+          I-->>APP: 409 {"error":"El alumno ya se encuentra inscrito en este taller"}
+          APP-->>A: "Ya estás inscrito"
+        else Inserción correcta
+          DB-->>I: id nuevo
+          I-->>APP: 201 {id, matricula, nombre, taller_id}
+          APP->>APP: Actualiza "Mis inscripciones" y vibración de éxito
+          APP-->>A: "¡Listo, ya estás inscrito!" + folio
+        end
+      end
+    end
+  end
+  opt Sin red o más de 8 s
+    APP-->>A: "Sin conexión con el campus"
+  end

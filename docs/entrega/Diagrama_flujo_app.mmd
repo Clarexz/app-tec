@@ -1,0 +1,38 @@
+%% CampusConectado: navegación entre pantallas (Expo Router)
+flowchart TD
+  INICIO(["Abrir la app"]) --> SES{"¿Hay sesión<br/>guardada?"}
+  SES -- No --> LOGIN["Login<br/>/login"]
+  LOGIN -- "datos incorrectos:<br/>aviso de error" --> LOGIN
+  LOGIN -- "datos correctos" --> NOM{"¿Ya capturó<br/>su nombre?"}
+  SES -- Sí --> NOM
+  NOM -- No --> GATE["¿Cómo te llamas?"]
+  GATE -- Continuar --> BARRA
+  NOM -- Sí --> BARRA
+
+  BARRA[["Barra de pestañas"]]
+  BARRA --> AVISOS["Avisos<br/>(inicio)"]
+  BARRA --> TALLERES["Talleres<br/>/talleres"]
+  BARRA --> INSC["Inscribirme<br/>/inscribirme"]
+  BARRA --> MIS["Mis inscripciones<br/>/mis-inscripciones"]
+
+  TALLERES -- "tocar tarjeta o<br/>'Ver taller #N'" --> DET["Detalle del taller<br/>/taller/[id]"]
+  DET -- "Inscribirme aquí" --> INSC
+  DET -. "404" .-> NOEX["Ese taller no existe"]
+  INSC -- "201" --> EXITO["¡Listo, ya estás inscrito!"]
+  INSC -. "400 / 409 / 503 / sin red" .-> ERR["Aviso de error<br/>(se conserva lo elegido)"]
+  EXITO -- "Ver mis inscripciones" --> MIS
+  MIS -- "tocar inscripción" --> DET
+
+  AVISOS -- "avatar" --> PERFIL["Mi cuenta<br/>/perfil"]
+  AVISOS -- "mantener presionado<br/>el logo" --> ESTADO["Estado del servidor<br/>/estado"]
+  PERFIL -- "Estado del servidor" --> ESTADO
+  PERFIL -- "Cerrar sesión" --> FIN(["Regresa a Login"])
+
+  classDef pant fill:#FFFFFF,stroke:#141414,color:#141414;
+  classDef err fill:#FFE3EA,stroke:#B3204A,color:#141414;
+  classDef ok fill:#DDF3E4,stroke:#2E7D4F,color:#141414;
+  classDef hub fill:#FFD23F,stroke:#141414,color:#141414;
+  class LOGIN,GATE,AVISOS,TALLERES,INSC,MIS,DET,PERFIL,ESTADO pant;
+  class NOEX,ERR err;
+  class EXITO ok;
+  class BARRA hub;
