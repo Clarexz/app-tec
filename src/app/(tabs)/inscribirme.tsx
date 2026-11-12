@@ -27,10 +27,14 @@ export default function InscribirmeScreen() {
 
   // `?taller=ID` preselecciona el taller. Se consume el parámetro para que volver a
   // llegar con el mismo ID (desde el detalle) lo vuelva a aplicar.
+  const [paramVisto, setParamVisto] = useState<string | undefined>(undefined);
+  if (taller !== paramVisto) {
+    setParamVisto(taller);
+    const n = Number(taller);
+    if (taller && Number.isInteger(n) && n > 0) setTallerId(n);
+  }
   useEffect(() => {
     if (taller === undefined || taller === '') return;
-    const n = Number(taller);
-    if (Number.isInteger(n) && n > 0) setTallerId(n);
     reset();
     router.setParams({ taller: undefined });
   }, [taller, reset]);

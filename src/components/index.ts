@@ -24,3 +24,4 @@ export { Header } from './Header';
 export type { HeaderProps } from './Header';
 export { IconButton } from './IconButton';
 export type { IconButtonProps } from './IconButton';
+export { NombreGate, nombreValido, limpiarNombre } from './NombreGate';
