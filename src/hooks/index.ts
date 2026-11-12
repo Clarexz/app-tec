@@ -44,7 +44,14 @@ export function useInscripciones(matricula: string | undefined): UseQueryResult<
 export function useInscribir(): UseMutationResult<Inscripcion, ApiError, NuevaInscripcion> {
   const qc = useQueryClient();
   return useMutation<Inscripcion, ApiError, NuevaInscripcion>({
-    mutationFn: (n) => api.inscribir({ ...n, matricula: normMatricula(n.matricula), nombre: n.nombre.trim() }),
+    mutationFn: async (n) => {
+      // El servidor solo revisa que existan las llaves (acepta "" y espacios): se valida aquí.
+      const limpia = { matricula: normMatricula(n.matricula), nombre: n.nombre.trim(), taller_id: n.taller_id };
+      if (!limpia.matricula || !limpia.nombre || !Number.isInteger(limpia.taller_id) || limpia.taller_id <= 0) {
+        throw new ApiError(400, { context: 'inscripcion' });
+      }
+      return api.inscribir(limpia);
+    },
     onSuccess: (nueva, n) => {
       const key = qk.inscripciones(normMatricula(n.matricula));
       // Actualiza la lista al instante (badges "Ya inscrito", Mis inscripciones) y luego confirma con el servidor.

@@ -9,6 +9,8 @@ export const queryClient = new QueryClient({
         if (err instanceof ApiError && err.status >= 400 && err.status < 500) return false;
         return count < 1;
       },
+      // Un Pod recién reiniciado puede rechazar conexiones 1–3 s: espera 1 s antes del reintento.
+      retryDelay: 1000,
       refetchOnWindowFocus: false,
     },
     mutations: { retry: 0 },

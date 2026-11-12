@@ -10,6 +10,8 @@ export interface ButtonProps {
   variant?: 'primary' | 'secondary' | 'ghost';
   onPress: () => void;
   loading?: boolean;
+  /** Texto junto al spinner mientras `loading` (p. ej. "Registrando…"). */
+  loadingText?: string;
   disabled?: boolean;
   icon?: LucideIcon;
   iconRight?: LucideIcon;
@@ -20,7 +22,7 @@ export interface ButtonProps {
 }
 
 export function Button({
-  title, variant = 'primary', onPress, loading, disabled, icon: Icon, iconRight: IconRight,
+  title, variant = 'primary', onPress, loading, loadingText, disabled, icon: Icon, iconRight: IconRight,
   arrow, haptic, accessibilityLabel, style,
 }: ButtonProps) {
   const off = !!disabled || !!loading;
@@ -50,7 +52,12 @@ export function Button({
     >
       <View style={styles.row}>
         {loading ? (
-          <ActivityIndicator color={fg} />
+          <>
+            <ActivityIndicator color={fg} />
+            {loadingText ? (
+              <Text style={{ fontFamily: fonts.sansBold, fontSize: 16, lineHeight: 22, color: fg }}>{loadingText}</Text>
+            ) : null}
+          </>
         ) : (
           <>
             {Icon ? <Icon size={20} strokeWidth={2} color={fg} /> : null}

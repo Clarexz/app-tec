@@ -184,6 +184,7 @@ export default function InscribirmeScreen() {
           arrow
           disabled={!listo}
           loading={mutation.isPending}
+          loadingText="Registrando…"
           onPress={enviar}
           accessibilityLabel={seleccionado ? `Inscribirme a ${seleccionado.nombre}` : 'Inscribirme'}
         />

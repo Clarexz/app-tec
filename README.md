@@ -121,6 +121,8 @@ Pruebas manuales contra el servidor real.
 - [`docs/ESPECIFICACION.md`](docs/ESPECIFICACION.md): especificación del producto, pantallas, mensajes y estilo.
 - [`CONTRATO.md`](CONTRATO.md): contrato interno entre módulos (capa de datos, componentes y pantallas).
 - [`DECISIONES.md`](DECISIONES.md): decisiones técnicas tomadas y su motivo.
+- [`docs/Integracion_App_Servidor.md`](docs/Integracion_App_Servidor.md): contrato real del servidor (verificado el 2026-11-12).
+- [`docs/entrega/Evidencias_pruebas_App.md`](docs/entrega/Evidencias_pruebas_App.md): tabla de pruebas de aceptación para llenar en el celular.
 
 ## Releases con GitHub Actions
 
