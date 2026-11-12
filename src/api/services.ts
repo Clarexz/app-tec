@@ -5,7 +5,6 @@ export interface SaludResultado {
   ok: boolean;
   ms: number;
   url: string;
-  mock: boolean;
   error?: string;
 }
 

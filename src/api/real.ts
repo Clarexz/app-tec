@@ -9,14 +9,13 @@ export const realApi: CampusApi = {
     const t0 = Date.now();
     try {
       const r = await fetchJson<Salud>(`${url}/salud`);
-      return { servicio: s, ok: r?.estado === 'ok', ms: Date.now() - t0, url, mock: false };
+      return { servicio: s, ok: r?.estado === 'ok', ms: Date.now() - t0, url };
     } catch (e) {
       return {
         servicio: s,
         ok: false,
         ms: Date.now() - t0,
         url,
-        mock: false,
         error: e instanceof Error ? e.message : 'Error',
       };
     }

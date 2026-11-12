@@ -40,7 +40,7 @@ export function mensajeDeError(err: unknown): MensajeUsuario {
         texto: 'No pudimos llegar al servidor. Revisa tu internet e intenta de nuevo.',
       };
     if (err.status === 400)
-      return { titulo: 'Faltan datos', texto: 'Revisa tu matrícula, tu nombre y el taller, y vuelve a intentarlo.' };
+      return { titulo: 'Faltan datos', texto: 'Revisa tu número de control, tu nombre y el taller, y vuelve a intentarlo.' };
     if (err.status === 404 && (err.context === 'taller' || err.context === 'inscripcion'))
       return { titulo: 'Ese taller no existe', texto: 'Revisa el número del taller o elige uno de la lista.' };
     if (err.status === 409)
