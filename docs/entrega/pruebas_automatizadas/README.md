@@ -8,6 +8,7 @@ Prueban `src/api` (la misma `fetchJson`, `realApi` y `mensajeDeError` que usa la
 | `integracion.test.ts` | Casos P1–P12, 503, 404 en HTML, timeout y sin red. |
 | `asyncstorage-shim.js` | Sustituto en memoria de AsyncStorage para correr en Node. |
 | `resultado.txt` | Salida de la última corrida (2026-11-12). |
+| `curp.test.ts` / `resultado_curp.txt` | Cálculo de las 4 letras de la CURP (13 casos, incluidas las excepciones del instructivo) e inicio de sesión con el padrón (5 casos). No necesita `servidor-local.js`. |
 
 ## Cómo correrlas
 

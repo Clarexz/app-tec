@@ -1,0 +1,19 @@
+OK  normal: PEGL (esperado PEGL)
+OK  acentos y Ñ interna: RATS (esperado RATS)
+OK  María + otro nombre: HESF (esperado HESF)
+OK  María José: SORJ (esperado SORJ)
+OK  José solo: LARJ (esperado LARJ)
+OK  partículas "De la": GACA (esperado GACA)
+OK  partícula "Mc": GELC (esperado GELC)
+OK  vocal con diéresis/acento: ZURA (esperado ZURA)
+OK  Ñ inicial → X: XARA (esperado XARA)
+OK  sin segundo apellido → X: MAXV (esperado MAXV)
+OK  apellido sin vocal interna → X: NXLL (esperado NXLL)
+OK  altisonante BUEI → BXEI: BXEI (esperado BXEI)
+OK  vocal inicial (OCHOA: la vocal interna es la 2.ª O): OOAE (esperado OOAE)
+OK  login 21580001/pegl: {"ok":true,"cuenta":{"noControl":"21580001","nombre":"Luis Pérez Gómez"}}
+OK  login 21580001/PEGX: {"ok":false,"motivo":"credenciales"}
+OK  login 21580003/HESF: {"ok":true,"cuenta":{"noControl":"21580003","nombre":"María Fernanda Hernández Salinas"}}
+OK  login 21580007/MAXV: {"ok":true,"cuenta":{"noControl":"21580007","nombre":"Valeria Martínez"}}
+OK  login 99999999/ABCD: {"ok":false,"motivo":"credenciales"}
+Todo correcto
