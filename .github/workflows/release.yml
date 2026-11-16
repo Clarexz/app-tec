@@ -129,9 +129,8 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(env.TAG, '-') }}
           body: |
-            ## APKs de CampusConectado
+            ## APK de CampusConectado
 
-            - `CampusConectado-X-pruebas.apk`: datos de prueba, ideal para demo sin servidor.
-            - `CampusConectado-X-servidor.apk`: conectado a Avisos e Inscripciones reales; Talleres sigue con datos de prueba hasta que el Equipo 3 lo publique.
+            - `CampusConectado-X-android.apk`: conectado a los servicios reales (Avisos, Talleres e Inscripciones). Cada alumno inicia sesión con su número de control.
 
             (X es la versión de este release.)

@@ -27,3 +27,18 @@ jobs:
         run: npx expo-doctor@latest
       - name: Bundle smoke test (Android)
         run: npx expo export -p android --output-dir dist
+
+  servidor:
+    name: Servidor en línea (informativo)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Probar los 3 servicios
+        run: |
+          fallo=0
+          for url in http://2.24.29.189:30001/salud http://2.24.29.189:30002/talleres http://2.24.29.189:30003/salud; do
+            echo "== $url"
+            curl -sS -i -m 10 "$url" || fallo=1
+            echo
+          done
+          exit $fallo
