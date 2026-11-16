@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Manual técnico de servicios e integración · v1.1</title>
+<style>
+@page {
+  size: letter;
+  margin: 24mm 18mm 20mm 18mm;
+  @top-left { content: ""; vertical-align: bottom; padding-bottom: 3mm; border-bottom: 0.6pt solid #E6DCC8; }
+  @top-right { content: "Manual técnico de servicios e integración · v1.1"; font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: bottom; padding-bottom: 3mm; border-bottom: 0.6pt solid #E6DCC8; }
+  @bottom-left { content: "CampusConectado · Servicios en la Nube · TecNM Campus Reynosa"; font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: top; padding-top: 3mm; border-top: 0.6pt solid #E6DCC8; }
+  @bottom-right { content: "Página " counter(page) " de " counter(pages); font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: top; padding-top: 3mm; border-top: 0.6pt solid #E6DCC8; }
+}
+@page :first { @top-left { content: none; border: none } @top-right { content: none; border: none } @bottom-left { content: none; border: none } @bottom-right { content: none; border: none } }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font: 9.6pt/1.42 "Liberation Sans", Arial, sans-serif; color: #141414; margin: 0; }
+p { margin: 0 0 7pt; text-align: justify; }
+h1 { font-size: 15.5pt; color: #A8055E; margin: 16pt 0 9pt; padding-bottom: 5pt; border-bottom: 1.2pt solid #E5097F; break-after: avoid; }
+h2 { font-size: 11.6pt; margin: 12pt 0 6pt; break-after: avoid; }
+h3 { font-size: 10.4pt; color: #A8055E; margin: 10pt 0 5pt; break-after: avoid; }
+.nuevo-cap { break-before: page; }
+code, .mono { font-family: "Liberation Mono", "Courier New", monospace; font-size: 8.6pt; color: #A8055E; }
+ul, ol { margin: 0 0 8pt; padding-left: 16pt; }
+ul li::marker { color: #E5097F; }
+ol li::marker { color: #A8055E; font-weight: bold; }
+li { margin-bottom: 3pt; text-align: justify; }
+table { width: 100%; border-collapse: collapse; margin: 4pt 0 10pt; font-size: 8.4pt; break-inside: auto; }
+th { background: #141414; color: #fff; text-align: left; padding: 4pt 6pt; font-weight: bold; border: 0.5pt solid #D9CDB4; }
+td { padding: 4pt 6pt; border: 0.5pt solid #D9CDB4; vertical-align: middle; }
+tbody tr:nth-child(even) td { background: #FBF6EC; }
+tr { break-inside: avoid; }
+td code, th code { font-size: 8pt; }
+.code { background: #F3E6CB; padding: 7pt 11pt; margin: 4pt 0 10pt; break-inside: avoid; }
+.code .lbl { font-weight: bold; color: #A8055E; font-size: 7.6pt; margin-bottom: 3pt; }
+.code pre { margin: 0; font: 8pt/1.38 "Liberation Mono", "Courier New", monospace; color: #141414; white-space: pre-wrap; }
+.callout { padding: 7pt 11pt; margin: 6pt 0 11pt; font-size: 8.8pt; break-inside: avoid; text-align: justify; }
+.nota { background: #FDEBF4; border: 0.9pt solid #E5097F; }
+.imp { background: #FFF4D6; border: 0.9pt solid #E8B84A; }
+.callout b:first-child { margin-right: 4pt; }
+figure { margin: 6pt 0 12pt; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; }
+figcaption { font-style: italic; font-size: 8pt; color: #666; margin-top: 4pt; }
+.nuevo { display: inline-block; font-size: 6.8pt; font-weight: bold; color: #fff; background: #E5097F; border-radius: 3pt; padding: 0.5pt 4pt; vertical-align: 2pt; margin-left: 5pt; }
+/* portada */
+.portada { height: 235mm; position: relative; }
+.portada .logo { width: 56mm; margin-top: 4mm; }
+.portada .kicker { margin-top: 30mm; font-size: 8.8pt; letter-spacing: 2.6pt; font-weight: bold; color: #A8055E; }
+.portada h1.titulo { font-size: 27pt; color: #141414; border: none; margin: 8pt 0 7pt; padding: 0; line-height: 1.15; }
+.portada .sub { font-size: 12pt; color: #555; margin-bottom: 11pt; }
+.portada .regla { border-top: 2pt solid #E5097F; margin-bottom: 26pt; }
+.portada table td { border: none; border-bottom: 0.5pt solid #E6DCC8; background: none !important; font-size: 9.4pt; padding: 5pt 0; }
+.portada table td:first-child { width: 47mm; font-weight: bold; color: #A8055E; font-size: 8.8pt; }
+.portada .aviso { margin-top: 24pt; font-style: italic; font-size: 7.8pt; color: #555; }
+/* índice */
+.toc h1 { border: none; color: #141414; font-size: 17pt; margin-top: 0; padding-bottom: 0; }
+.toc .l1, .toc .l2 { display: flex; align-items: baseline; }
+.toc .l1 { font-weight: bold; margin-top: 4.5pt; font-size: 9.3pt; }
+.toc .l2 { padding-left: 13pt; font-size: 8.3pt; color: #333; margin-top: 0.8pt; }
+.toc .fill { flex: 1; border-bottom: 0.9pt dotted #333; margin: 0 3pt 3pt; }
+.toc a { color: inherit; text-decoration: none; }
+.small { font-size: 8pt; color: #555; }
+</style>
+</head>
+<body>
+
+<!-- ============================== PORTADA ============================== -->
+<section class="portada">
+  <img class="logo" src="logo.png" alt="Ravyn Studio">
+  <div class="kicker">CAMPUSCONECTADO · DOCUMENTACIÓN TÉCNICA</div>
+  <h1 class="titulo">Manual técnico de servicios e integración</h1>
+  <div class="sub">Especificación de las APIs del sistema, procedimiento de integración y documentación técnica de la aplicación móvil</div>
+  <div class="regla"></div>
+  <table>
+    <tr><td>Proyecto</td><td>CampusConectado</td></tr>
+    <tr><td>Asignatura</td><td>Servicios en la Nube</td></tr>
+    <tr><td>Institución</td><td>Tecnológico Nacional de México · Instituto Tecnológico de Reynosa</td></tr>
+    <tr><td>Cliente</td><td>Mtra. Dora Luz Quevedo Valenzuela</td></tr>
+    <tr><td>Elaboró</td><td>Ravyn Studio · Dirección de proyecto · Equipo 1 (App e integración)</td></tr>
+    <tr><td>Versión</td><td>1.1 — incorpora la aplicación móvil (capítulo 7) y los resultados de la integración</td></tr>
+    <tr><td>Fecha</td><td>16 de noviembre de 2026</td></tr>
+    <tr><td>Estado de verificación</td><td>Servidor: 13 de 13 pruebas funcionales aprobadas contra producción (12/11/2026).<br>Aplicación: 20 de 20 verificaciones automáticas aprobadas (16/11/2026); pruebas en el celular según la sección 8.2.</td></tr>
+  </table>
+  <div class="aviso">Documento académico. Todos los datos que aparecen en este manual son ficticios y no contiene contraseñas, claves privadas ni datos personales reales.</div>
+</section>
+
+<!-- ============================== ÍNDICE ============================== -->
+<section class="toc" style="break-before: page">
+  <h1>Índice</h1>
+  <!--TOC-->
+</section>
+
+<!-- ============================== 1 ============================== -->
+<h1 id="s1" class="nuevo-cap">1. Introducción</h1>
+<h2 id="s1-1">1.1 Propósito</h2>
+<p>Este manual describe de forma técnica los tres servicios web que forman el sistema <b>CampusConectado</b> —Avisos, Talleres e Inscripciones— y establece el procedimiento para integrarlos con la aplicación móvil. Reúne el contrato real de cada API (rutas, métodos, datos de entrada, respuestas y códigos de estado), los comportamientos del servidor que la aplicación debe considerar, la documentación técnica de la propia aplicación y la batería de pruebas con la que se valida la integración.</p>
+<h2 id="s1-2">1.2 Alcance del documento</h2>
+<p>La información de los servicios se verificó directamente contra el servidor desplegado el <b>12 de noviembre de 2026</b>, con un resultado de 13 de 13 pruebas funcionales aprobadas. El documento cubre la capa de servicios y su consumo desde la aplicación; la administración del servidor, la instalación de K3s y la operación de cada contenedor se detallan en el <i>Manual técnico del servidor</i> y en la <i>Guía de instalación y operación</i>.</p>
+<p>La <b>versión 1.1</b> agrega el capítulo 7, con la documentación técnica de la aplicación móvil desarrollada por el Equipo 1 (tecnologías, arquitectura, configuración, manejo de errores, compilación del APK y decisiones técnicas), actualiza las secciones 2.4, 4, 5, 6 y 8 con el estado real de la integración e incorpora los anexos C y D.</p>
+<h2 id="s1-3">1.3 Audiencia</h2>
+<ul>
+  <li>Equipo de desarrollo de la aplicación móvil (Equipo 1), responsable de la integración.</li>
+  <li>Equipos de servicios (Equipos 2, 3 y 4), como referencia del contrato acordado.</li>
+  <li>Personal técnico del cliente encargado de verificar o dar mantenimiento al sistema.</li>
+</ul>
+<h2 id="s1-4">1.4 Convenciones</h2>
+<table>
+  <thead><tr><th style="width:30%">Convención</th><th>Significado</th></tr></thead>
+  <tbody>
+    <tr><td><code>texto monoespaciado</code></td><td>Rutas, comandos, nombres de archivos, variables y fragmentos de código.</td></tr>
+    <tr><td><code>200</code>, <code>404</code>…</td><td>Códigos de estado HTTP devueltos por los servicios (ver Anexo A).</td></tr>
+    <tr><td>A001, B003, C010… · 21580001</td><td>Matrículas y números de control ficticios utilizados exclusivamente para pruebas.</td></tr>
+    <tr><td>Nota / Importante</td><td>Recuadros con información que afecta directamente el funcionamiento.</td></tr>
+    <tr><td><span class="nuevo" style="margin-left:0">NUEVO 1.1</span></td><td>Secciones agregadas o actualizadas en la versión 1.1.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== 2 ============================== -->
+<h1 id="s2">2. Arquitectura y datos de conexión</h1>
+<h2 id="s2-1">2.1 Vista general</h2>
+<p>El sistema se ejecuta en un servidor privado virtual (VPS) de Hostinger con Ubuntu 24.04 LTS. Cada servicio es una aplicación Flask empaquetada en una imagen Docker y desplegada en un clúster K3s (Kubernetes) de un solo nodo. Cada equipo opera en su propio <i>namespace</i> y su servicio se publica al exterior mediante un Service de tipo NodePort. La aplicación móvil consume los tres servicios directamente por HTTP a través de la IP pública del servidor.</p>
+<figure><img src="fig1_arquitectura.jpg" style="width:100%"><figcaption>Figura 1. Arquitectura del sistema CampusConectado.</figcaption></figure>
+<h2 id="s2-2">2.2 Servicios y direcciones</h2>
+<table>
+  <thead><tr><th>Servicio</th><th>Equipo</th><th>Dirección base</th><th>Namespace</th><th>Imagen</th></tr></thead>
+  <tbody>
+    <tr><td>Avisos</td><td>2</td><td><code>http://2.24.29.189:30001</code></td><td><code>equipo2</code></td><td><code>equipo2/avisos:1.0</code></td></tr>
+    <tr><td>Talleres</td><td>3</td><td><code>http://2.24.29.189:30002</code></td><td><code>equipo3</code></td><td><code>equipo3/talleres:1.0</code></td></tr>
+    <tr><td>Inscripciones</td><td>4</td><td><code>http://2.24.29.189:30003</code></td><td><code>equipo4</code></td><td><code>equipo4/inscripciones:1.1</code></td></tr>
+  </tbody>
+</table>
+<h2 id="s2-3">2.3 Características técnicas</h2>
+<ul>
+  <li>Tres servicios Flask sobre Python 3.12, cada uno en su propio contenedor Docker.</li>
+  <li>Orquestación con K3s (Kubernetes) en un solo nodo; una réplica por servicio.</li>
+  <li>Todas las respuestas válidas son JSON con el encabezado <code>Content-Type: application/json</code>.</li>
+  <li>Comunicación por <b>HTTP sin cifrar</b>, <b>sin autenticación</b> y <b>sin CORS</b>.</li>
+  <li>El firewall del VPS permite el acceso a los puertos 30001, 30002 y 30003.</li>
+  <li>Inscripciones consulta a Talleres por la red interna del clúster, con el nombre DNS <code>talleres.equipo3.svc.cluster.local</code>.</li>
+  <li>Las inscripciones se almacenan en SQLite (<code>/datos/inscripciones.db</code>) sobre el volumen persistente <code>bd-pvc</code> de 1 GiB.</li>
+</ul>
+<h2 id="s2-4">2.4 Configuración de la aplicación <span class="nuevo">NUEVO 1.1</span></h2>
+<p>La aplicación obtiene las direcciones de los servicios a partir de variables de entorno que se incrustan en el APK al compilarlo. Para operar contra el servidor real se utiliza la siguiente configuración en el archivo <code>.env</code> (desarrollo) o en <code>eas.json</code> / variables del repositorio (compilación):</p>
+<div class="code"><div class="lbl">.env</div><pre>EXPO_PUBLIC_API_HOST=http://2.24.29.189
+EXPO_PUBLIC_PORT_AVISOS=30001
+EXPO_PUBLIC_PORT_TALLERES=30002
+EXPO_PUBLIC_PORT_INSCRIPCIONES=30003</pre></div>
+<div class="callout nota"><b>Nota.</b> En la versión 1.0 de la aplicación existía la variable <code>EXPO_PUBLIC_USE_MOCKS</code> para trabajar con datos de prueba locales mientras Talleres no estaba desplegado. Con los tres servicios en línea, el equipo eliminó ese modo en la versión 1.1: la aplicación siempre consume el servidor real. Los detalles están en la sección 7.4.</div>
+
+<!-- ============================== 3 ============================== -->
+<h1 id="s3">3. Especificación de los servicios</h1>
+<p>Cada servicio expone una ruta de salud (<code>GET /salud</code>) que responde <code>200</code> con <code>{"estado":"ok"}</code> y se utiliza para verificar su disponibilidad. A continuación se detalla el resto de las rutas de cada servicio.</p>
+<h2 id="s3-1">3.1 Servicio de Avisos (puerto 30001)</h2>
+<table>
+  <thead><tr><th style="width:12%">Método</th><th style="width:22%">Ruta</th><th>Descripción y respuesta</th></tr></thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/salud</code></td><td>Verifica la disponibilidad. <code>200</code> <code>{"estado":"ok"}</code></td></tr>
+    <tr><td>GET</td><td><code>/avisos</code></td><td>Devuelve la lista de avisos del campus. <code>200</code> con un arreglo de objetos <code>{id, titulo, mensaje}</code>.</td></tr>
+  </tbody>
+</table>
+<div class="code"><div class="lbl">Respuesta real de GET /avisos</div><pre>[
+  {"id": 1, "titulo": "Bienvenida", "mensaje": "Bienvenidos a CampusConectado."},
+  {"id": 2, "titulo": "Inicio de talleres", "mensaje": "Consulta los horarios de los talleres disponibles."},
+  {"id": 3, "titulo": "Inscripciones", "mensaje": "Ya puedes consultar la informacion de los talleres."}
+]</pre></div>
+<ul>
+  <li>El campo <code>id</code> es numérico.</li>
+  <li>Los avisos son una lista fija definida en el código del servicio.</li>
+  <li>No existe la ruta <code>GET /avisos/{id}</code>; una solicitud a ella devuelve <code>404</code> en formato HTML (no JSON).</li>
+</ul>
+<h2 id="s3-2">3.2 Servicio de Talleres (puerto 30002)</h2>
+<table>
+  <thead><tr><th style="width:12%">Método</th><th style="width:22%">Ruta</th><th>Descripción y respuesta</th></tr></thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/salud</code></td><td>Verifica la disponibilidad. <code>200</code> <code>{"estado":"ok"}</code></td></tr>
+    <tr><td>GET</td><td><code>/talleres</code></td><td>Devuelve el catálogo completo. <code>200</code> con un arreglo de objetos <code>{id, nombre, horario}</code>.</td></tr>
+    <tr><td>GET</td><td><code>/talleres/{id}</code></td><td>Devuelve un taller por su identificador numérico. <code>200</code> con el objeto, o <code>404</code> en JSON si no existe.</td></tr>
+  </tbody>
+</table>
+<div class="code"><div class="lbl">Catálogo real · GET /talleres</div><pre>[
+  {"id": 1, "nombre": "Programación en Python", "horario": "Lunes y Miércoles 10:00 - 12:00"},
+  {"id": 2, "nombre": "Diseño UI/UX Móvil", "horario": "Martes y Jueves 14:00 - 16:00"},
+  {"id": 3, "nombre": "Fundamentos de Kubernetes y DevOps", "horario": "Viernes 08:00 - 12:00"}
+]</pre></div>
+<div class="code"><div class="lbl">Respuesta de GET /talleres/999 · 404</div><pre>{"error": "Taller no encontrado", "id_solicitado": 999}</pre></div>
+<ul>
+  <li>El catálogo es fijo y contiene <b>únicamente tres talleres</b> (identificadores 1, 2 y 3).</li>
+  <li>Si el identificador no es un entero (por ejemplo <code>/talleres/abc</code>), Flask responde <code>404</code> en HTML. La aplicación debe validar el valor antes de enviarlo.</li>
+</ul>
+<h2 id="s3-3">3.3 Servicio de Inscripciones (puerto 30003)</h2>
+<table>
+  <thead><tr><th style="width:12%">Método</th><th style="width:22%">Ruta</th><th>Descripción y respuesta</th></tr></thead>
+  <tbody>
+    <tr><td>GET</td><td><code>/salud</code></td><td>Verifica la disponibilidad. <code>200</code> <code>{"estado":"ok"}</code></td></tr>
+    <tr><td>POST</td><td><code>/inscripciones</code></td><td>Registra una inscripción. Respuestas posibles: <code>201</code>, <code>400</code>, <code>404</code>, <code>409</code> y <code>503</code>.</td></tr>
+    <tr><td>GET</td><td><code>/inscripciones?matricula=XXX</code></td><td>Lista las inscripciones de una matrícula. <code>200</code> con un arreglo (vacío <code>[]</code> si no hay registros); <code>400</code> si falta el parámetro.</td></tr>
+  </tbody>
+</table>
+<h3>Registro de una inscripción</h3>
+<p>La solicitud debe incluir el encabezado <code>Content-Type: application/json</code>; sin él, el servicio no interpreta el cuerpo y responde <code>400</code>. El cuerpo contiene tres campos:</p>
+<div class="code"><div class="lbl">Solicitud</div><pre>POST /inscripciones
+Content-Type: application/json
+
+{"matricula": "B003", "nombre": "Ana", "taller_id": 1}</pre></div>
+<table>
+  <thead><tr><th style="width:9%">Código</th><th style="width:36%">Condición</th><th>Cuerpo de la respuesta (real)</th></tr></thead>
+  <tbody>
+    <tr><td>201</td><td>Inscripción creada</td><td><code>{"id":5,"matricula":"B003","nombre":"Ana","taller_id":1}</code></td></tr>
+    <tr><td>400</td><td>Falta un campo o el cuerpo no es JSON</td><td><code>{"error":"Faltan campos obligatorios"}</code></td></tr>
+    <tr><td>404</td><td>El taller no existe (verificado con Talleres)</td><td><code>{"error":"El taller especificado no existe"}</code></td></tr>
+    <tr><td>409</td><td>La matrícula ya está inscrita en ese taller</td><td><code>{"error":"El alumno ya se encuentra inscrito en este taller"}</code></td></tr>
+    <tr><td>503</td><td>Talleres no responde en 3 segundos</td><td><code>{"error":"El servicio de talleres no está disponible"}</code></td></tr>
+    <tr><td>503</td><td>Talleres responde un código distinto de 200 o 404</td><td><code>{"error":"Error al comunicarse con el servicio de talleres"}</code></td></tr>
+  </tbody>
+</table>
+<p>El siguiente diagrama muestra el flujo interno del registro, incluida la validación contra el servicio de Talleres y la restricción de unicidad en la base de datos:</p>
+<figure><img src="fig2_secuencia.jpg" style="width:80%"><figcaption>Figura 2. Secuencia del registro de una inscripción.</figcaption></figure>
+<h3>Consulta de inscripciones</h3>
+<div class="code"><div class="lbl">Ejemplo</div><pre>GET /inscripciones?matricula=B003
+
+200 OK
+[{"id": 5, "matricula": "B003", "nombre": "Ana", "taller_id": 1}]</pre></div>
+<ul>
+  <li>Sin el parámetro <code>matricula</code> responde <code>400</code> <code>{"error":"Se requiere el parámetro matricula"}</code>.</li>
+  <li>La respuesta incluye únicamente <code>taller_id</code>; el nombre y el horario del taller deben obtenerse del servicio de Talleres.</li>
+</ul>
+<h2 id="s3-4">3.4 Formato de errores</h2>
+<p>Todos los errores generados por la lógica de los servicios tienen la forma <code>{"error": "&lt;mensaje&gt;"}</code>. El <code>404</code> de Talleres agrega el campo <code>id_solicitado</code>. Los errores producidos por el propio framework —rutas inexistentes (<code>404</code>) o métodos no permitidos (<code>405</code>)— se devuelven en <b>HTML</b>, por lo que el cliente HTTP debe tolerar cuerpos que no sean JSON.</p>
+
+<!-- ============================== 4 ============================== -->
+<h1 id="s4">4. Consideraciones de integración <span class="nuevo">NUEVO 1.1</span></h1>
+<p>Durante la verificación del servidor se identificaron los siguientes comportamientos. La aplicación los compensa para garantizar datos consistentes y una experiencia clara para el usuario; la última columna indica dónde quedó implementado cada tratamiento en la versión 1.1.</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:31%">Comportamiento del servidor</th><th style="width:38%">Tratamiento en la aplicación</th><th>Implementado en</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Solo valida que existan las llaves del JSON: acepta cadenas vacías o con espacios.</td><td><code>trim()</code> y validación antes de enviar; el botón «Inscribirme» permanece deshabilitado si falta un dato.</td><td><code>src/hooks/index.ts</code> (<code>useInscribir</code>)</td></tr>
+    <tr><td>2</td><td>La matrícula distingue mayúsculas y minúsculas (<code>a001</code> ≠ <code>A001</code>).</td><td>Se normaliza a mayúsculas sin espacios al iniciar sesión, al registrar y al consultar.</td><td><code>src/auth/cuentas.ts</code>, <code>src/hooks/index.ts</code></td></tr>
+    <tr><td>3</td><td><code>taller_id</code> debe ser numérico; un texto produce <code>404</code> o <code>503</code>.</td><td>El taller se elige del catálogo; se envía un entero y se rechaza cualquier valor no entero o ≤ 0.</td><td><code>src/hooks/index.ts</code>, <code>TallerPicker</code></td></tr>
+    <tr><td>4</td><td>Existen únicamente los talleres 1, 2 y 3.</td><td>El catálogo se lee siempre del servidor; ya no hay datos de prueba que mantener sincronizados.</td><td><code>src/api/real.ts</code></td></tr>
+    <tr><td>5</td><td>La consulta de inscripciones solo devuelve <code>taller_id</code>.</td><td>Se cruza con la caché de <code>/talleres</code>; si no se encuentra, se muestra «Taller #id».</td><td><code>useTallerNombre</code></td></tr>
+    <tr><td>6</td><td>Los errores <code>404</code>/<code>405</code> de rutas se devuelven en HTML.</td><td>El cliente HTTP intenta interpretar JSON y, si falla, usa el mensaje asociado al código.</td><td><code>src/api/http.ts</code></td></tr>
+    <tr><td>7</td><td>Sin <code>readinessProbe</code>: tras recrear un Pod, el servicio puede rechazar conexiones durante 1 a 3 segundos.</td><td>Un reintento automático en consultas GET con 1 s de espera y botón «Reintentar» visible.</td><td><code>src/api/queryClient.ts</code></td></tr>
+    <tr><td>8</td><td>Inscripciones puede tardar hasta 3 segundos en responder <code>503</code> si Talleres no está disponible.</td><td>Tiempo de espera del cliente de 8 s e indicador «Registrando…».</td><td><code>src/config.ts</code>, pantalla Inscribirme</td></tr>
+    <tr><td>9</td><td>Sin CORS: un navegador web no puede consumir los servicios.</td><td>Se prueba en Expo Go o en el APK; no se habilita la versión web.</td><td>—</td></tr>
+    <tr><td>10</td><td>Comunicación HTTP sin cifrar.</td><td>Se habilita <code>android.usesCleartextTraffic</code> mediante <code>expo-build-properties</code>.</td><td><code>app.json</code></td></tr>
+    <tr><td>11</td><td>La base de datos contiene registros de prueba (A001, B002, B003).</td><td>Usar números de control nuevos en demostraciones.</td><td>—</td></tr>
+    <tr><td>12</td><td>No existe una ruta para cancelar inscripciones.</td><td>No se ofrece esa función en la aplicación.</td><td>—</td></tr>
+  </tbody>
+</table>
+<div class="callout imp"><b>Importante.</b> Sin la opción <code>usesCleartextTraffic</code>, Android bloquea el tráfico HTTP en el APK de producción, aunque la aplicación funcione correctamente en Expo Go.</div>
+
+<!-- ============================== 5 ============================== -->
+<h1 id="s5">5. Mensajes al usuario <span class="nuevo">NUEVO 1.1</span></h1>
+<p>La aplicación traduce cada respuesta del servidor a un mensaje comprensible para el alumno (<code>src/api/errors.ts</code>). Debajo del mensaje principal se muestra, en texto secundario, el campo <code>error</code> enviado por el servidor, lo que facilita el diagnóstico.</p>
+<table>
+  <thead><tr><th style="width:18%">Caso</th><th style="width:25%">Título</th><th>Texto</th></tr></thead>
+  <tbody>
+    <tr><td><code>201</code> Creada</td><td>¡Listo, ya estás inscrito!</td><td>Te esperamos en {nombre del taller}, {horario}. (con número de folio)</td></tr>
+    <tr><td><code>400</code></td><td>Faltan datos</td><td>Revisa tu número de control, tu nombre y el taller, y vuelve a intentarlo.</td></tr>
+    <tr><td><code>404</code></td><td>Ese taller no existe</td><td>Revisa el número del taller o elige uno de la lista.</td></tr>
+    <tr><td><code>409</code></td><td>Ya estás inscrito</td><td>Ya tienes lugar en este taller. Lo ves en Mis inscripciones.</td></tr>
+    <tr><td><code>503</code></td><td>Talleres no responde</td><td>Algo no salió de nuestro lado. Intenta de nuevo en un momento.</td></tr>
+    <tr><td>Sin red / tiempo agotado</td><td>Sin conexión con el campus</td><td>No pudimos llegar al servidor. Revisa tu internet e intenta de nuevo.</td></tr>
+    <tr><td>Otro <code>5xx</code></td><td>Algo no salió</td><td>Ya lo estamos revisando; intenta de nuevo en un momento.</td></tr>
+    <tr><td>Otro <code>4xx</code> (p. ej. 404 en HTML)</td><td>Algo no salió</td><td>Intenta de nuevo en un momento.</td></tr>
+  </tbody>
+</table>
+<p class="small">En la versión 1.1 el texto del 400 dice «número de control» en lugar de «matrícula», porque así se identifica al alumno en la aplicación (sección 7.6).</p>
+
+<!-- ============================== 6 ============================== -->
+<h1 id="s6">6. Procedimiento de integración <span class="nuevo">NUEVO 1.1</span></h1>
+<p>La integración se realiza en el orden siguiente. La capa de servicios de la aplicación concentra todos los cambios; las pantallas no deberían requerir modificaciones.</p>
+<h2 id="s6-1">6.1 Verificación de conectividad</h2>
+<p>Antes de modificar la aplicación se comprueba que los servicios respondan desde la red de desarrollo:</p>
+<div class="code"><div class="lbl">Terminal</div><pre>curl -i -m 10 http://2.24.29.189:30001/salud
+curl -i -m 10 http://2.24.29.189:30002/talleres
+curl -i -m 10 http://2.24.29.189:30003/salud</pre></div>
+<p>Si alguna de estas solicitudes falla, el problema está en la red o en el servidor y debe reportarse al responsable de la infraestructura antes de continuar. El repositorio de la aplicación incluye esta misma comprobación como trabajo informativo de GitHub Actions (<i>Servidor en línea</i>); su resultado más reciente se reporta en la sección 8.4.</p>
+<h2 id="s6-2">6.2 Ajustes en la aplicación</h2>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:44%">Paso</th><th>Resultado (Equipo 1)</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><b>Revisión inicial.</b> Comparar <code>types/api.ts</code>, <code>api/real.ts</code>, <code>api/errors.ts</code>, <code>api/http.ts</code> y los datos de prueba contra las secciones 3 a 5, y listar las diferencias.</td><td>Hecho. El contrato de la aplicación coincidía con el del servidor; las diferencias de comportamiento se atendieron según la sección 4.</td></tr>
+    <tr><td>2</td><td><b>Tipos y servicios.</b> Ajustar los tipos, la implementación real, el mapeo de errores y el cliente HTTP al contrato de la sección 3.</td><td>Hecho. Sin cambios de contrato; se agregó espera de 1 s antes del reintento.</td></tr>
+    <tr><td>3</td><td><b>Datos de prueba.</b> Igualar los mocks a los avisos y talleres reales.</td><td>No aplica: por decisión del equipo se eliminaron los datos de prueba en la v1.1 (Anexo C).</td></tr>
+    <tr><td>4</td><td><b>Validaciones.</b> Aplicar en el formulario las consideraciones 1 a 3 de la sección 4.</td><td>Hecho (<code>useInscribir</code>, <code>TallerPicker</code>).</td></tr>
+    <tr><td>5</td><td><b>Configuración.</b> Establecer el archivo <code>.env</code> de la sección 2.4 y confirmar en la pantalla <i>Estado del servidor</i> que los tres servicios aparecen disponibles.</td><td>Hecho en <code>.env.example</code>, <code>eas.json</code> y el flujo de <i>Release</i>.</td></tr>
+    <tr><td>6</td><td><b>Pruebas en dispositivo.</b> Ejecutar la matriz de la sección 8 en un teléfono con Expo Go.</td><td>Por registrar en la sección 8.2.</td></tr>
+    <tr><td>7</td><td><b>Compilación.</b> Generar el APK configurado con el host real y repetir las pruebas en el APK instalado.</td><td>APK <code>CampusConectado-1.1.0-android.apk</code> compilado con GitHub Actions (12/11/2026). Pruebas en el APK por registrar.</td></tr>
+    <tr><td>8</td><td><b>Documentación.</b> Actualizar el README y el registro de decisiones, y llenar la tabla de evidencias.</td><td>Hecho: <code>README.md</code>, <code>DECISIONES.md</code> y carpeta <code>docs/entrega/</code>.</td></tr>
+    <tr><td>9</td><td><b>Validación estática.</b> Ejecutar <code>npx tsc --noEmit</code> y <code>npx expo-doctor</code> sin errores.</td><td>Hecho: sin errores y 20/20 (sección 7.10).</td></tr>
+  </tbody>
+</table>
+<div class="callout nota"><b>Restricción.</b> La integración no modifica el servidor, los manifiestos de Kubernetes ni la base de datos. Cualquier diferencia detectada en el servidor se documenta y se reporta al equipo responsable.</div>
+
+<!-- ============================== 7 (NUEVO) ============================== -->
+<h1 id="s7" class="nuevo-cap">7. Aplicación móvil (Equipo 1) <span class="nuevo">NUEVO 1.1</span></h1>
+<h2 id="s7-1">7.1 Descripción y alcance</h2>
+<p><b>CampusConectado</b> es una aplicación Android para los alumnos del campus. El alumno inicia sesión con su número de control, consulta los avisos, revisa el catálogo de talleres, se inscribe y consulta sus inscripciones. La aplicación consume los tres servicios descritos en el capítulo 3 sin intermediarios. Su uso paso a paso se explica en el capítulo 3 del <i>Manual de usuario</i>.</p>
+<table>
+  <thead><tr><th style="width:26%">Dato</th><th>Valor</th></tr></thead>
+  <tbody>
+    <tr><td>Versión</td><td>1.1.0 (<code>app.json</code>)</td></tr>
+    <tr><td>Paquete Android</td><td><code>mx.ravynstudio.campusconectado</code></td></tr>
+    <tr><td>Plataforma</td><td>Android (no se publican versiones web ni iOS; ver sección 9)</td></tr>
+    <tr><td>Repositorio</td><td>GitHub, con integración continua (lint, tipos, <code>expo-doctor</code> y compilación de prueba) en cada cambio</td></tr>
+    <tr><td>Pantallas</td><td>Inicio de sesión, Avisos, Talleres, Detalle de taller, Inscribirme, Mis inscripciones, Mi cuenta y Estado del servidor</td></tr>
+  </tbody>
+</table>
+<h2 id="s7-2">7.2 Tecnologías y versiones</h2>
+<p>Versiones instaladas según <code>package-lock.json</code> (16/11/2026):</p>
+<table>
+  <thead><tr><th style="width:36%">Paquete</th><th style="width:13%">Versión</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td><code>expo</code> (SDK 58)</td><td>58.0.25</td><td>Plataforma de desarrollo y compilación</td></tr>
+    <tr><td><code>react-native</code> / <code>react</code></td><td>0.88.1 / 19.3.0</td><td>Interfaz nativa</td></tr>
+    <tr><td><code>expo-router</code></td><td>58.0.31</td><td>Navegación por archivos (<code>src/app/</code>), pestañas y rutas protegidas</td></tr>
+    <tr><td><code>@tanstack/react-query</code></td><td>5.106.1</td><td>Caché, reintentos y estados de carga de los datos remotos</td></tr>
+    <tr><td><code>@react-native-async-storage/async-storage</code></td><td>2.2.0</td><td>Sesión guardada en el teléfono</td></tr>
+    <tr><td><code>expo-build-properties</code></td><td>58.0.12</td><td>Habilita el tráfico HTTP sin cifrar en Android</td></tr>
+    <tr><td><code>expo-haptics</code> · <code>expo-splash-screen</code> · <code>expo-font</code></td><td>58.0.x</td><td>Vibración de confirmación, pantalla de carga y tipografías</td></tr>
+    <tr><td><code>react-native-reanimated</code> · <code>react-native-screens</code></td><td>4.7.1 · 4.30.1</td><td>Animaciones y pantallas nativas</td></tr>
+    <tr><td><code>lucide-react-native</code></td><td>1.70.0</td><td>Íconos</td></tr>
+    <tr><td><code>typescript</code> · <code>eslint</code></td><td>6.0.3 · 9.39.5</td><td>Tipado estricto y análisis estático</td></tr>
+  </tbody>
+</table>
+<p class="small">Herramientas: Node.js 22, npm 10, Expo CLI, EAS CLI (<code>npx eas-cli@latest</code>) y GitHub Actions.</p>
+<h2 id="s7-3">7.3 Estructura del proyecto</h2>
+<div class="code"><div class="lbl">Repositorio de la aplicación</div><pre>app.json            Configuración de Expo: paquete Android, plugins y cleartext
+app.config.ts       Versión desde CI y plugin de firma
+eas.json            Perfiles de compilación (preview = APK, production = AAB)
+.env.example        Variables EXPO_PUBLIC_* (sección 2.4)
+plugins/            withReleaseSigning.js: firma opcional del APK release
+.github/workflows/  ci.yml (lint, tipos, expo-doctor, bundle, servidor) · release.yml (APK)
+src/
+├── app/            Pantallas (Expo Router): login, (tabs)/, taller/[id], perfil, estado
+├── api/            http.ts (timeout y errores) · real.ts (rutas) · errors.ts (mensajes)
+│                   queryClient.ts (reintentos) · services.ts (interfaz CampusApi)
+├── hooks/          useAvisos, useTalleres, useTaller, useInscribir, useInscripciones, useSalud
+├── auth/           Sesión del alumno (contexto + AsyncStorage) y validación de acceso
+├── components/     Botones, tarjetas, avisos, selector de taller, estados de carga y error
+├── theme/          Colores, espacios y tipografía de la marca
+├── types/api.ts    Tipos del contrato: Aviso, Taller, Inscripcion, NuevaInscripcion
+└── config.ts       Lectura de variables y armado de las URL de cada servicio</pre></div>
+<p>Las carpetas nativas <code>android/</code> e <code>ios/</code> no se versionan: se generan con <code>npx expo prebuild</code> a partir de <code>app.json</code> (<i>Continuous Native Generation</i>).</p>
+<h2 id="s7-4">7.4 Arquitectura interna</h2>
+<p>La aplicación separa la interfaz del acceso a datos en cuatro capas. Ninguna pantalla llama a <code>fetch</code> directamente:</p>
+<div class="code"><div class="lbl">Flujo de una consulta</div><pre>Pantalla       src/app/**          muestra datos y estados
+   ↓
+Hook           src/hooks/index.ts  React Query: caché, reintentos, validación
+   ↓
+api            src/api/index.ts    interfaz CampusApi → realApi (src/api/real.ts)
+   ↓
+fetchJson      src/api/http.ts     encabezados, timeout de 8 s, parseo tolerante
+   ↓
+Servicio       :30001 · :30002 · :30003
+
+Error → ApiError(código) → mensajeDeError() → título, texto y detalle en pantalla</pre></div>
+<ol>
+  <li><b>Pantallas.</b> Solo muestran datos y estados: cargando, vacío, error con «Reintentar» y éxito.</li>
+  <li><b>Hooks.</b> Cada operación es un hook de React Query: <code>useTalleres</code> guarda el catálogo 30 s; <code>useTaller</code> no reintenta un 404; <code>useInscribir</code> normaliza y valida antes de enviar y, al recibir 201, actualiza al instante «Mis inscripciones»; <code>useSalud</code> consulta los tres <code>/salud</code> en paralelo.</li>
+  <li><b>Capa api.</b> Implementa la interfaz <code>CampusApi</code>. En la v1.0 permitía elegir entre datos de prueba y servidor real por servicio; en la v1.1 siempre usa el servidor real. La interfaz se conserva para poder sustituir la implementación en pruebas.</li>
+  <li><b>Cliente HTTP.</b> <code>fetchJson</code> agrega los encabezados, aplica el tiempo de espera y convierte cualquier falla en un <code>ApiError</code> con código de estado (sección 7.5).</li>
+</ol>
+<figure><img src="fig3_flujo_app.png" style="width:100%"><figcaption>Figura 3. Navegación entre las pantallas de la aplicación.</figcaption></figure>
+<h2 id="s7-5">7.5 Consumo de los servicios y manejo de errores</h2>
+<table>
+  <thead><tr><th style="width:21%">Operación (hook)</th><th style="width:36%">Método y ruta</th><th>Respuestas que maneja</th></tr></thead>
+  <tbody>
+    <tr><td>Salud (<code>useSalud</code>)</td><td><code>GET :30001|:30002|:30003/salud</code></td><td>200 <code>{"estado":"ok"}</code> → «En línea»; cualquier otra respuesta → «Sin respuesta». Mide el tiempo en ms y nunca lanza error.</td></tr>
+    <tr><td>Avisos (<code>useAvisos</code>)</td><td><code>GET :30001/avisos</code></td><td>200 con la lista. Error → estado con «Reintentar».</td></tr>
+    <tr><td>Talleres (<code>useTalleres</code>)</td><td><code>GET :30002/talleres</code></td><td>200 con el catálogo; se usa también para nombrar los talleres de «Mis inscripciones».</td></tr>
+    <tr><td>Detalle (<code>useTaller</code>)</td><td><code>GET :30002/talleres/{id}</code></td><td>200 → detalle; 404 → «Ese taller no existe» bajo el buscador o en la pantalla de detalle.</td></tr>
+    <tr><td>Inscribir (<code>useInscribir</code>)</td><td><code>POST :30003/inscripciones</code><br><code>{"matricula","nombre","taller_id"}</code></td><td>201 → pantalla de éxito con folio y vibración; 400, 404, 409 y 503 → aviso en el formulario sin perder lo elegido (sección 5).</td></tr>
+    <tr><td>Mis inscripciones (<code>useInscripciones</code>)</td><td><code>GET :30003/inscripciones?matricula=N</code></td><td>200 con la lista o <code>[]</code> → estado vacío con acceso a Talleres.</td></tr>
+  </tbody>
+</table>
+<ul>
+  <li><b>Encabezados.</b> <code>Accept: application/json</code> en todas las solicitudes y <code>Content-Type: application/json</code> en el POST.</li>
+  <li><b>Tiempo de espera.</b> 8 s con <code>AbortController</code>. Un tiempo agotado o una falla de red se reportan con código 0 («Sin conexión con el campus»).</li>
+  <li><b>Cuerpos no JSON.</b> Si la respuesta es HTML (404/405 de Flask), el error se clasifica por su código y no se muestra detalle.</li>
+  <li><b>Reintentos.</b> Consultas GET: un reintento tras 1 s ante fallas de red o 5xx; nunca ante 4xx. Registro (POST): sin reintentos, para no duplicar la inscripción.</li>
+</ul>
+<h2 id="s7-6">7.6 Sesión del alumno</h2>
+<p>El alumno inicia sesión con su <b>número de control</b> (8 dígitos) y una contraseña formada por las <b>4 primeras letras de su CURP</b>. Como el servidor no ofrece un servicio de autenticación (sección 9), la validación es <b>local y temporal</b> (<code>src/auth/cuentas.ts</code>): la contraseña nunca se envía a los servicios. Cuando exista un servicio de inicio de sesión, solo se sustituye la función <code>verificarCredenciales</code>.</p>
+<ul>
+  <li>La sesión (número de control y nombre) se guarda en el teléfono con AsyncStorage y se conserva al cerrar la aplicación.</li>
+  <li>Las rutas están protegidas con <code>Stack.Protected</code>: sin sesión solo existen las pantallas de inicio de sesión y de estado del servidor.</li>
+  <li>La primera vez se pide el nombre completo, que se envía en el campo <code>nombre</code> de cada inscripción.</li>
+  <li>El número de control se envía en el campo <code>matricula</code>, en mayúsculas y sin espacios. Para el servidor no hay diferencia entre ambos términos.</li>
+</ul>
+<h2 id="s7-7">7.7 Tráfico HTTP sin cifrar</h2>
+<p>Desde Android 9, una aplicación compilada bloquea por omisión las conexiones <code>http://</code>. Como los servicios se publican sin cifrado, se habilita el tráfico en <code>app.json</code>:</p>
+<div class="code"><div class="lbl">app.json · plugins</div><pre>["expo-build-properties", { "android": { "usesCleartextTraffic": true } }]</pre></div>
+<div class="callout imp"><b>Importante.</b> Expo Go ya permite HTTP, por lo que una falla de esta configuración solo se observa en el APK instalado. La prueba 15 de la sección 8.2 verifica este punto. Si en el futuro se habilita HTTPS en el servidor, esta opción puede retirarse.</div>
+<h2 id="s7-8">7.8 Ejecución y generación del APK</h2>
+<h3>Desarrollo con Expo Go</h3>
+<div class="code"><div class="lbl">Terminal</div><pre>npm ci
+cp .env.example .env
+npx expo start -c</pre></div>
+<p>Se escanea el código QR con Expo Go en un teléfono Android. Cada cambio en <code>.env</code> requiere reiniciar con <code>-c</code> (caché limpia), porque las variables se incrustan al compilar.</p>
+<h3>Compilación con EAS</h3>
+<table>
+  <thead><tr><th style="width:18%">Perfil</th><th style="width:24%">Salida</th><th>Uso</th></tr></thead>
+  <tbody>
+    <tr><td><code>preview</code></td><td>APK</td><td>Instalación directa en teléfonos para pruebas y demostración.</td></tr>
+    <tr><td><code>production</code></td><td>AAB</td><td>Publicación en Google Play.</td></tr>
+  </tbody>
+</table>
+<div class="code"><div class="lbl">Terminal</div><pre>npx eas-cli@latest build -p android --profile preview</pre></div>
+<h3>Compilación con GitHub Actions</h3>
+<p>Como alternativa sin cuenta de Expo, el flujo <code>release.yml</code> ejecuta <code>expo prebuild</code> y <code>./gradlew assembleRelease</code>, y publica <code>CampusConectado-&lt;versión&gt;-android.apk</code> en la sección <i>Releases</i> del repositorio. Se activa al crear una etiqueta <code>v*</code> o manualmente desde <i>Actions</i>. La firma con un keystore propio es opcional; sin él, el APK se firma con la llave de depuración, suficiente para una demostración.</p>
+<h2 id="s7-9">7.9 Decisiones técnicas y diferencias con la práctica original</h2>
+<p>La práctica original proponía desarrollar la aplicación con MIT App Inventor. El Equipo 1 la desarrolló con <b>Expo y React Native con TypeScript</b>, por los motivos siguientes:</p>
+<table>
+  <thead><tr><th style="width:17%">Tema</th><th style="width:33%">App Inventor</th><th>Expo / React Native (elegido)</th></tr></thead>
+  <tbody>
+    <tr><td>Manejo de errores</td><td>Bloques de respuesta con código; difícil distinguir tiempo agotado y cuerpos HTML.</td><td>Un tipo de error con código, detalle del servidor y código 0 para red, que permite los mensajes de la sección 5.</td></tr>
+    <tr><td>Tiempo de espera y reintentos</td><td>Control limitado.</td><td>8 s de espera, un reintento en consultas y ninguno en el registro (sección 7.5).</td></tr>
+    <tr><td>Navegación</td><td>Una pantalla por formulario, con estado compartido limitado.</td><td>Pestañas, rutas con parámetros y rutas protegidas por sesión.</td></tr>
+    <tr><td>Caché</td><td>Manual con TinyDB.</td><td>React Query: cruza <code>taller_id</code> con el catálogo y actualiza «Mis inscripciones» al instante.</td></tr>
+    <tr><td>Código y equipo</td><td>Bloques visuales sin control de versiones útil.</td><td>TypeScript estricto, Git, revisión automática en cada cambio y bitácora reconstruible (Anexo D).</td></tr>
+    <tr><td>APK</td><td>Exportación manual.</td><td>Compilación reproducible con EAS o GitHub Actions y versión controlada.</td></tr>
+  </tbody>
+</table>
+<p>A cambio, el proyecto requiere más conocimientos de programación, genera un APK de mayor tamaño y necesita la configuración de la sección 7.7. Otras decisiones relevantes (registro completo en <code>DECISIONES.md</code>):</p>
+<ul>
+  <li>Tiempo de espera de 8 s: Inscripciones espera hasta 3 s a Talleres y se deja margen para redes móviles.</li>
+  <li>Validación en la aplicación antes de enviar, porque el servidor acepta campos vacíos.</li>
+  <li>Eliminación de los datos de prueba en la v1.1, una vez desplegados los tres servicios.</li>
+  <li>Inicio de sesión local temporal; sin cancelación de inscripciones ni detalle de avisos, porque el servidor no los ofrece.</li>
+</ul>
+<h2 id="s7-10">7.10 Verificación de la aplicación</h2>
+<p>Resultados obtenidos el 16 de noviembre de 2026 sobre la versión actual del código, después de <code>npm ci</code>:</p>
+<table>
+  <thead><tr><th style="width:26%">Revisión</th><th style="width:30%">Comando</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>Tipos</td><td><code>npx tsc --noEmit</code></td><td>Sin errores</td></tr>
+    <tr><td>Diagnóstico de Expo</td><td><code>npx expo-doctor</code></td><td>20/20 checks passed. No issues detected!</td></tr>
+    <tr><td>Análisis estático</td><td><code>npx expo lint</code></td><td>Sin errores ni advertencias</td></tr>
+    <tr><td>Compilación de prueba</td><td><code>npx expo export -p android</code></td><td>Paquete Hermes generado (CI, 16/11/2026)</td></tr>
+    <tr><td>Capa de datos</td><td><code>docs/entrega/pruebas_automatizadas</code></td><td>16 de 16 casos correctos</td></tr>
+  </tbody>
+</table>
+<p>Las pruebas de la capa de datos ejecutan el código real de <code>src/api</code> contra una réplica local del contrato de la sección 3 (con Inscripciones consultando a Talleres) y comprueban el mensaje que vería el alumno:</p>
+<table>
+  <thead><tr><th style="width:38%">Caso</th><th>Resultado obtenido</th></tr></thead>
+  <tbody>
+    <tr><td>Avisos y catálogo de talleres</td><td>3 avisos; 3 talleres con horario</td></tr>
+    <tr><td>Taller 999</td><td>404 → «Ese taller no existe» (detalle «Taller no encontrado»)</td></tr>
+    <tr><td>Inscripción nueva / repetida</td><td>201 → «Te esperamos en Diseño UI/UX Móvil, Martes y Jueves 14:00 - 16:00.» / 409 → «Ya estás inscrito»</td></tr>
+    <tr><td>Taller inexistente al inscribir / cuerpo sin llaves</td><td>404 → «Ese taller no existe» / 400 → «Faltan datos»</td></tr>
+    <tr><td>Talleres detenido durante el registro</td><td>503 → «Talleres no responde»; Estado marca Talleres «Sin respuesta»</td></tr>
+    <tr><td>Ruta inexistente con respuesta HTML</td><td>404 → «Algo no salió», sin interrumpir la aplicación</td></tr>
+    <tr><td>Servidor que tarda 10 s / puerto cerrado</td><td>Corte a los 8,0 s → «Sin conexión con el campus» / «Sin conexión con el campus»</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== 8 ============================== -->
+<h1 id="s8" class="nuevo-cap">8. Pruebas de aceptación <span class="nuevo">NUEVO 1.1</span></h1>
+<h2 id="s8-1">8.1 Preparación</h2>
+<p>Las pruebas se ejecutan desde la aplicación, instalada como APK, contra el servidor real. En la versión 1.1 la matrícula se toma del número de control de la sesión, por lo que se utiliza una cuenta de prueba cuyo número de control no tenga inscripciones previas, para que el primer registro devuelva <code>201</code>. Las pruebas 13 y 14 requieren coordinación con el responsable del servidor, quien elimina el Pod correspondiente mientras se observa la aplicación.</p>
+<h2 id="s8-2">8.2 Matriz de pruebas</h2>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:31%">Acción en la aplicación</th><th style="width:37%">Resultado esperado</th><th>Obtenido</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>Abrir sin sesión; entrar con datos incorrectos y luego correctos.</td><td>«Número de control o contraseña incorrectos»; con los datos correctos pide el nombre y abre Avisos.</td><td></td></tr>
+    <tr><td>1</td><td>Abrir la sección Avisos.</td><td>Se muestran los 3 avisos reales.</td><td></td></tr>
+    <tr><td>2</td><td>Abrir Talleres.</td><td>Se muestran los 3 talleres reales con su horario.</td><td></td></tr>
+    <tr><td>3</td><td>Buscar el taller <b>1</b>.</td><td>Se abre el detalle de «Programación en Python».</td><td></td></tr>
+    <tr><td>4</td><td>Buscar el taller <b>999</b>.</td><td>Mensaje «Ese taller no existe».</td><td></td></tr>
+    <tr><td>5</td><td>Inscribirse en el <b>taller 2</b>.</td><td>Pantalla de éxito con «Diseño UI/UX Móvil», Martes y Jueves 14:00 - 16:00.</td><td></td></tr>
+    <tr><td>6</td><td>Repetir la misma inscripción.</td><td>El taller aparece como «Ya inscrito»; si se envía, «Ya estás inscrito» (<code>409</code>).</td><td></td></tr>
+    <tr><td>7</td><td>Abrir Inscribirme con el taller 999 (<code>campusconectado://inscribirme?taller=999</code>).</td><td>«No encontramos el taller #999» y no permite enviar.</td><td></td></tr>
+    <tr><td>8</td><td>Intentar enviar sin elegir taller.</td><td>La aplicación bloquea el envío antes de llamar al servidor.</td><td></td></tr>
+    <tr><td>9</td><td>Abrir Mis inscripciones.</td><td>Se muestra la inscripción al taller 2 con nombre, horario y folio.</td><td></td></tr>
+    <tr><td>10</td><td>Mis inscripciones con una cuenta sin registros.</td><td>Estado vacío con acceso a Talleres.</td><td></td></tr>
+    <tr><td>11</td><td>Activar modo avión, abrir Avisos y luego Reintentar.</td><td>«Sin conexión con el campus»; al reconectar, los datos cargan.</td><td></td></tr>
+    <tr><td>12</td><td>Abrir Estado del servidor.</td><td>Los 3 servicios disponibles, con su tiempo de respuesta.</td><td></td></tr>
+    <tr><td>13</td><td>Persistencia: se elimina el Pod de Inscripciones; consultar Mis inscripciones.</td><td>La inscripción continúa registrada.</td><td></td></tr>
+    <tr><td>14</td><td>Recuperación: se elimina el Pod de Avisos; abrir Avisos y Reintentar.</td><td>Los avisos vuelven a cargar en pocos segundos.</td><td></td></tr>
+    <tr><td>15</td><td>Repetir 1, 2 y 5 en el <b>APK</b> (no en Expo Go).</td><td>Mismo resultado que en Expo Go (tráfico HTTP habilitado).</td><td></td></tr>
+  </tbody>
+</table>
+<div class="callout nota"><b>Nota.</b> El caso <code>503</code> fue verificado del lado del servidor sin detener Talleres. En la versión 1.1 la aplicación ya no tiene modo de datos de prueba; su manejo se verificó con las pruebas automatizadas de la sección 7.10.</div>
+<h2 id="s8-3">8.3 Registro de resultados</h2>
+<p>Para cada prueba se registran los datos utilizados, el resultado esperado, el resultado obtenido, el estado (aprobada o no aprobada) y el nombre de la captura de pantalla correspondiente (<code>capturas/NN_descripcion.png</code>). Las capturas se toman desde el teléfono. El registro detallado está en <code>docs/entrega/Evidencias_pruebas_App.md</code> del repositorio de la aplicación.</p>
+<h2 id="s8-4">8.4 Observación de conectividad</h2>
+<div class="callout imp"><b>Importante.</b> El 16 de noviembre de 2026 a las 18:57 UTC, el trabajo informativo <i>Servidor en línea</i> de GitHub Actions no obtuvo respuesta de ninguno de los tres puertos (30001, 30002 y 30003): las tres solicitudes agotaron el tiempo de espera de 10 s. Las pruebas del 12 de noviembre sí fueron exitosas. Antes de ejecutar la matriz o la demostración, conviene repetir la verificación de la sección 6.1 y, si falla, confirmar con el responsable del servidor que el VPS está encendido y que el firewall acepta conexiones desde Internet.</div>
+
+<!-- ============================== 9 ============================== -->
+<h1 id="s9">9. Alcance y exclusiones</h1>
+<p>Quedan fuera del alcance de esta integración:</p>
+<ul>
+  <li>Modificaciones al servidor, a los manifiestos de Kubernetes o a la base de datos.</li>
+  <li>Autenticación de usuarios en el servidor, cifrado HTTPS o habilitación de CORS. El inicio de sesión de la aplicación es local (sección 7.6) y no cambia el servidor.</li>
+  <li>Cancelación de inscripciones y control de cupo por taller.</li>
+  <li>Versiones web o iOS de la aplicación.</li>
+</ul>
+
+<!-- ============================== 10 ============================== -->
+<h1 id="s10">10. Entregables <span class="nuevo">NUEVO 1.1</span></h1>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:30%">Entregable</th><th style="width:40%">Ubicación</th><th>Estado</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Relación de cambios en la aplicación (archivo y motivo)</td><td>Anexo C</td><td>Entregado</td></tr>
+    <tr><td>2</td><td>Matriz de la sección 8 con resultados y capturas</td><td>Sección 8.2 y <code>docs/entrega/Evidencias_pruebas_App.md</code></td><td>Verificaciones automáticas entregadas; resultados en el celular por registrar</td></tr>
+    <tr><td>3</td><td>APK configurado contra el servidor real</td><td>GitHub · Releases v1.1.0 (<code>CampusConectado-1.1.0-android.apk</code>) o EAS, perfil <code>preview</code></td><td>Compilado</td></tr>
+    <tr><td>4</td><td>Reporte de diferencias entre este manual y el servidor</td><td>Sección 10.1</td><td>Entregado</td></tr>
+    <tr><td>5</td><td>Lista de capturas para el manual de usuario</td><td><i>Manual de usuario</i> v1.1, capítulo 3 (marcadores con el nombre de cada archivo)</td><td>Entregado</td></tr>
+    <tr><td>6</td><td>Documentación técnica de la aplicación y diagramas</td><td>Capítulo 7 y <code>docs/entrega/</code> (manuales, bitácora y diagramas en .mmd, .svg y .png)</td><td>Entregado</td></tr>
+  </tbody>
+</table>
+<h2 id="s10-1">10.1 Diferencias encontradas</h2>
+<ul>
+  <li><b>Contrato de las APIs:</b> sin diferencias. Rutas, cuerpos y códigos coinciden con el capítulo 3.</li>
+  <li><b>Datos de prueba:</b> la versión 1.0 de este manual pedía conservar el modo de datos de prueba (paso 3 de la sección 6.2); el equipo decidió eliminarlo en la v1.1.</li>
+  <li><b>Identificación del alumno:</b> la aplicación usa el número de control como matrícula y lo envía en mayúsculas; el servidor no requiere cambios.</li>
+  <li><b>Conectividad:</b> falla de acceso a los tres puertos observada el 16/11/2026 (sección 8.4), pendiente de confirmar con el responsable del servidor.</li>
+</ul>
+
+<!-- ============================== ANEXOS ============================== -->
+<h1 id="sA" class="nuevo-cap">Anexo A. Referencia de códigos HTTP</h1>
+<table>
+  <thead><tr><th style="width:11%">Código</th><th style="width:25%">Nombre</th><th>Uso en CampusConectado</th></tr></thead>
+  <tbody>
+    <tr><td>200</td><td>OK</td><td>Consulta exitosa (salud, avisos, talleres, inscripciones).</td></tr>
+    <tr><td>201</td><td>Created</td><td>Inscripción registrada correctamente.</td></tr>
+    <tr><td>400</td><td>Bad Request</td><td>Faltan campos en el registro o falta el parámetro <code>matricula</code>.</td></tr>
+    <tr><td>404</td><td>Not Found</td><td>Taller inexistente o ruta no definida.</td></tr>
+    <tr><td>405</td><td>Method Not Allowed</td><td>Método HTTP no admitido en la ruta (respuesta HTML).</td></tr>
+    <tr><td>409</td><td>Conflict</td><td>La matrícula ya está inscrita en el taller.</td></tr>
+    <tr><td>503</td><td>Service Unavailable</td><td>Inscripciones no pudo comunicarse con Talleres.</td></tr>
+    <tr><td>0 (en la app)</td><td>Sin respuesta</td><td>Código interno de la aplicación para falla de red o tiempo de espera agotado (8 s).</td></tr>
+  </tbody>
+</table>
+
+<h1 id="sB">Anexo B. Glosario</h1>
+<table>
+  <thead><tr><th style="width:25%">Término</th><th>Definición</th></tr></thead>
+  <tbody>
+    <tr><td>API</td><td>Interfaz que permite a la aplicación solicitar y enviar información a un servicio mediante HTTP.</td></tr>
+    <tr><td>APK / AAB</td><td>Formatos de instalación de Android: el APK se instala directamente; el AAB se publica en Google Play.</td></tr>
+    <tr><td>Cleartext</td><td>Tráfico HTTP sin cifrar; Android lo bloquea por omisión en las aplicaciones compiladas.</td></tr>
+    <tr><td>Contenedor</td><td>Paquete que incluye una aplicación y todas sus dependencias para ejecutarse de forma aislada.</td></tr>
+    <tr><td>EAS</td><td>Servicio de Expo para compilar y firmar la aplicación en la nube.</td></tr>
+    <tr><td>Expo / Expo Go</td><td>Plataforma para crear aplicaciones con React Native; Expo Go permite probarlas en el teléfono sin compilar un APK.</td></tr>
+    <tr><td>JSON</td><td>Formato de texto con el que los servicios intercambian información.</td></tr>
+    <tr><td>Kubernetes (K3s)</td><td>Plataforma que administra los contenedores, los reinicia si fallan y los publica en la red. K3s es una distribución ligera.</td></tr>
+    <tr><td>Mock</td><td>Datos de prueba locales que imitan las respuestas del servidor (eliminados de la aplicación en la v1.1).</td></tr>
+    <tr><td>Namespace</td><td>Espacio aislado dentro del clúster; cada equipo trabaja en el suyo.</td></tr>
+    <tr><td>Número de control</td><td>Identificador del alumno en la aplicación; se envía al servidor como <code>matricula</code>.</td></tr>
+    <tr><td>Pod</td><td>Unidad mínima de Kubernetes; ejecuta el contenedor de un servicio.</td></tr>
+    <tr><td>PVC</td><td>Solicitud de almacenamiento persistente; conserva la base de datos aunque el Pod se recree.</td></tr>
+    <tr><td>React Query</td><td>Biblioteca que administra la caché, los reintentos y los estados de carga de los datos remotos en la aplicación.</td></tr>
+    <tr><td>Service / NodePort</td><td>Recurso que da una dirección estable a los Pods; NodePort la expone en un puerto del servidor (30001 a 30003).</td></tr>
+  </tbody>
+</table>
+
+<h1 id="sC" class="nuevo-cap">Anexo C. Relación de cambios en la aplicación</h1>
+<p>Cambios de la versión 1.0 (6/11/2026) a la 1.1 (12/11/2026) y ajustes posteriores, con su motivo.</p>
+<table>
+  <thead><tr><th style="width:33%">Archivo(s)</th><th style="width:36%">Cambio</th><th>Motivo</th></tr></thead>
+  <tbody>
+    <tr><td><code>src/api/mock/*</code>, <code>src/api/index.ts</code>, <code>src/config.ts</code></td><td>Se eliminan los datos de prueba y las variables <code>USE_MOCKS</code> / <code>MOCK_SERVICES</code>.</td><td>Los tres servicios ya están desplegados.</td></tr>
+    <tr><td><code>src/config.ts</code></td><td>Los puertos se leen de <code>EXPO_PUBLIC_PORT_*</code>; se quita la «/» final del host.</td><td>Configuración completa por variables (sección 2.4).</td></tr>
+    <tr><td><code>src/auth/*</code>, <code>src/app/login.tsx</code>, <code>src/app/perfil.tsx</code>, <code>src/components/NombreGate.tsx</code></td><td>Inicio de sesión, captura del nombre, Mi cuenta y cierre de sesión.</td><td>Identificar al alumno sin escribir la matrícula en cada inscripción.</td></tr>
+    <tr><td><code>src/app/_layout.tsx</code></td><td>Rutas protegidas con <code>Stack.Protected</code>.</td><td>Sin sesión solo se accede a inicio de sesión y estado.</td></tr>
+    <tr><td><code>src/hooks/index.ts</code></td><td>Validación antes de enviar; actualización inmediata de «Mis inscripciones»; recarga ante 409.</td><td>Consideraciones 1 a 3 y 5 de la sección 4.</td></tr>
+    <tr><td><code>src/api/queryClient.ts</code></td><td>Espera de 1 s antes del reintento.</td><td>Pods que rechazan conexiones al reiniciarse (consideración 7).</td></tr>
+    <tr><td><code>src/app/(tabs)/inscribirme.tsx</code>, <code>src/components/Button.tsx</code></td><td>Texto «Registrando…»; talleres ya inscritos deshabilitados; aviso de taller inexistente.</td><td>Consideración 8 y prevención de 409.</td></tr>
+    <tr><td><code>src/app/(tabs)/*.tsx</code>, <code>src/app/taller/[id].tsx</code>, <code>src/app/estado.tsx</code></td><td>Búsqueda por número o nombre, insignia «Inscrito», resumen de estado con hora de revisión.</td><td>Uso con datos reales y sesión.</td></tr>
+    <tr><td><code>src/api/errors.ts</code></td><td>Texto del 400 con «número de control».</td><td>Coherencia con la sesión.</td></tr>
+    <tr><td><code>eas.json</code>, <code>.env.example</code>, <code>release.yml</code></td><td>Un solo APK contra el servidor real.</td><td>Ya no hay variantes de prueba.</td></tr>
+    <tr><td><code>eslint.config.js</code>, <code>ci.yml</code>, <code>package.json</code></td><td>ESLint en CI; parches del SDK 58 (Expo 58.0.25); verificación informativa del servidor.</td><td><code>expo-doctor</code> 20/20 y detección temprana de fallas de conectividad.</td></tr>
+  </tbody>
+</table>
+
+<h1 id="sD">Anexo D. Bitácora de desarrollo de la aplicación</h1>
+<p>Reconstruida con el historial de Git del repositorio (no se tomaron capturas del avance). Las fechas corresponden a cuándo se registró cada avance.</p>
+<table>
+  <thead><tr><th style="width:23%">Fase</th><th style="width:12%">Fecha</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>1. Base del proyecto</td><td>06/11/2026</td><td>Proyecto Expo SDK 58 con Expo Router y TypeScript, tema de marca, tipos del contrato y reparto de módulos.</td></tr>
+    <tr><td>2. Capa de datos y pantallas</td><td>06/11/2026</td><td>Cliente HTTP, mensajes de error, datos de prueba, hooks, componentes y las seis pantallas.</td></tr>
+    <tr><td>3. Pruebas, CI y releases</td><td>06/11/2026</td><td>Matriz de 13 pruebas con datos de prueba, GitHub Actions y versión <b>v1.0.0</b>.</td></tr>
+    <tr><td>4. Sesión y servidor real</td><td>12/11/2026</td><td>Inicio de sesión, rutas protegidas, eliminación de los datos de prueba y ESLint.</td></tr>
+    <tr><td>5. Integración con el servidor</td><td>12/11/2026</td><td>Ajustes de la sección 4, APK y versión <b>v1.1.0</b>.</td></tr>
+    <tr><td>6. Documentación de entrega</td><td>12–16/11/2026</td><td>Manuales, diagramas, evidencias, pruebas automatizadas, verificación de conectividad en CI y Expo 58.0.25.</td></tr>
+  </tbody>
+</table>
+</body>
+</html>

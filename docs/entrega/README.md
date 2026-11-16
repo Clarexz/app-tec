@@ -10,6 +10,9 @@ Versión **1.1.0** · Expo SDK 58 · React Native 0.88 · TypeScript · Hecha po
 
 | Documento | Contenido |
 |---|---|
+| [`Manual_tecnico_servicios_integracion_v1.1.pdf`](Manual_tecnico_servicios_integracion_v1.1.pdf) | **Manual técnico integrado** (servicios de los equipos 2–4 + capítulo 7 de la app) |
+| [`Manual_de_usuario_CampusConectado_v1.1.docx`](Manual_de_usuario_CampusConectado_v1.1.docx) / `.pdf` | **Manual de usuario integrado** (capítulo 3: aplicación móvil) |
+| [`fuentes/`](fuentes/README.md) | HTML, figuras, marcadores de captura y scripts para regenerar los manuales |
 | [`Manual_tecnico_App.md`](Manual_tecnico_App.md) | Stack, arquitectura, consumo de servicios, errores, cleartext, APK, decisiones y verificación |
 | [`Manual_de_usuario.md`](Manual_de_usuario.md) | Guía para el alumno y lista de capturas |
 | [`Bitacora_de_desarrollo.md`](Bitacora_de_desarrollo.md) | Historial reconstruido con `git log` |
