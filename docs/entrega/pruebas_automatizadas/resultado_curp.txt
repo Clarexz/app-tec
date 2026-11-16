@@ -17,7 +17,7 @@ OK  login 21580003/HESF: {"ok":true,"cuenta":{"noControl":"21580003","nombre":"M
 OK  login 21580007/MAXV: {"ok":true,"cuenta":{"noControl":"21580007","nombre":"Valeria Martínez"}}
 OK  login 99999999/ABCD: {"ok":false,"motivo":"credenciales"}
 OK  login 21580011/HECS: {"ok":true,"cuenta":{"noControl":"21580011","nombre":"Said Alejandro Hernández de la Cruz"}}
-OK  login 21580012/FOHM: {"ok":true,"cuenta":{"noControl":"21580012","nombre":"Marcon Antonio Flores Hernandez"}}
+OK  login 21580012/FOHM: {"ok":true,"cuenta":{"noControl":"21580012","nombre":"Marco Antonio Flores Hernández"}}
 OK  login 21580013/SOCJ: {"ok":true,"cuenta":{"noControl":"21580013","nombre":"Jair Azales Solis Cervantes"}}
-OK  login 21580014/AAFA: {"ok":true,"cuenta":{"noControl":"21580014","nombre":"Antonio Alarcón Figuero"}}
+OK  login 21580014/AAFA: {"ok":true,"cuenta":{"noControl":"21580014","nombre":"Antonio Alarcón Figueroa"}}
 Todo correcto
