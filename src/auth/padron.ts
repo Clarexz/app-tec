@@ -26,6 +26,10 @@ const ALUMNOS: Alumno[] = [
   { noControl: '21580008', nombres: 'Carlos Eduardo', primerApellido: 'Mc Gregor', segundoApellido: 'Leal' },
   { noControl: '21580009', nombres: 'Andrea', primerApellido: 'Zúñiga', segundoApellido: 'Ríos' },
   { noControl: '21580010', nombres: 'Emiliano', primerApellido: 'Ochoa', segundoApellido: 'Ávila' },
+  { noControl: '21580011', nombres: 'Said Alejandro', primerApellido: 'Hernández', segundoApellido: 'de la Cruz' },
+  { noControl: '21580012', nombres: 'Marcon Antonio', primerApellido: 'Flores', segundoApellido: 'Hernandez' },
+  { noControl: '21580013', nombres: 'Jair Azales', primerApellido: 'Solis', segundoApellido: 'Cervantes' },
+  { noControl: '21580014', nombres: 'Antonio', primerApellido: 'Alarcón', segundoApellido: 'Figuero' },
 ];
 
 export async function buscarAlumno(noControl: string): Promise<Alumno | null> {

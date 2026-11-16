@@ -28,6 +28,7 @@ const casos: [string, Parameters<typeof letrasCurp>[0], string][] = [
   const login = [
     ['21580001', 'pegl', true], ['21580001', 'PEGX', false], ['21580003', 'HESF', true],
     ['21580007', 'MAXV', true], ['99999999', 'ABCD', false],
+    ['21580011', 'HECS', true], ['21580012', 'FOHM', true], ['21580013', 'SOCJ', true], ['21580014', 'AAFA', true],
   ] as const;
   for (const [nc, clave, ok] of login) {
     const r = await verificarCredenciales(nc, clave);
