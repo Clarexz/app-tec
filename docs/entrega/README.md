@@ -4,7 +4,7 @@ App Android para alumnos del TecNM Campus Reynosa: inicias sesión con tu númer
 
 Versión **1.1.0** · Expo SDK 58 · React Native 0.88 · TypeScript · Hecha por Ravyn Studio.
 
-> En esta carpeta los datos son ficticios: la IP del VPS aparece como `203.0.113.10` (rango de documentación) y los números de control son de ejemplo.
+> En los documentos `.md` de esta carpeta la IP del VPS aparece como `203.0.113.10` (ficticia, rango de documentación). Los manuales integrados v1.1 conservan la dirección del servidor tal como la publicaron los equipos 2–4 en sus manuales. En todos, los números de control son de ejemplo y no hay contraseñas.
 
 ## Documentos de esta entrega
 
