@@ -14,5 +14,5 @@ for i, p in enumerate(r.pages):
     if i > 0:
         p.merge_page(stamp)
     wtr.add_page(p)
-wtr.add_metadata({'/Title': 'Manual técnico de servicios e integración · v1.1', '/Author': 'Ravyn Studio', '/Subject': 'CampusConectado'})
+wtr.add_metadata({'/Title': 'Manual técnico de servicios e integración', '/Author': 'Ravyn Studio', '/Subject': 'CampusConectado'})
 wtr.write(out)

@@ -1,4 +1,4 @@
-"""Agrega a Manual_de_usuario.docx (v1.0) el capítulo de la aplicación móvil (Equipo 1) -> v1.1.
+"""Agrega a Manual_de_usuario.docx el capítulo de la aplicación móvil (Equipo 1).
 
 Uso: python3 -I manual_usuario.py ENTRADA.docx CARPETA_PLACEHOLDERS SALIDA.docx [paginas.json]
 paginas.json (opcional): {"texto del encabezado": pagina} para llenar el índice.
@@ -178,14 +178,8 @@ reemplazar_en(els[3], 'Consulta de avisos y talleres, registro de inscripciones 
               'Aplicación móvil para alumnos y consulta de los servicios: avisos, talleres e inscripciones')
 cover = els[4]
 for tc in cover.iter(WNS + 't'):
-    if tc.text == '1.0':
-        tc.text = '1.1'
-    elif tc.text == '12 de noviembre de 2026':
+    if tc.text == '12 de noviembre de 2026':
         tc.text = '16 de noviembre de 2026'
-hdr = d.sections[0].header
-for p in hdr.paragraphs:
-    for r in p.runs:
-        r.text = r.text.replace('v1.0', 'v1.1')
 
 # 1.1: mención de la app
 p11 = buscar(lambda s: s.startswith('El sistema funciona las 24 horas'))
@@ -256,7 +250,7 @@ cap.append(para(['La aplicación ', ('b', 'CampusConectado'), ' permite a cada a
                  'resto del manual, por lo que la información es la misma en la aplicación y en el navegador.']))
 
 cap.append(heading(2, '3.1 Instalar la aplicación', anc()))
-add(lista([['Copie en el celular el archivo ', ('m', 'CampusConectado-1.1.0-android.apk'), ' que entrega el equipo y ábralo.'],
+add(lista([['Copie en el celular el archivo ', ('m', 'CampusConectado-1.2.0-android.apk'), ' que entrega el equipo y ábralo.'],
            ['Si el celular indica que no permite instalar aplicaciones de origen desconocido, toque ', ('b', 'Configuración'),
             ', active ', ('b', 'Permitir de esta fuente'), ' y regrese.'],
            ['Toque ', ('b', 'Instalar'), ' y, al terminar, ', ('b', 'Abrir'), '.']]))
@@ -271,10 +265,12 @@ add(lista([['Abra ', ('b', 'CampusConectado'), '. Aparece la pantalla ', ('b', '
 add(capturas([('02_login.png', 'Inicio de sesión'), ('03_login_error.png', 'Datos incorrectos')]))
 cap.append(para(['Si algún dato no coincide, la aplicación muestra el aviso ', ('b', '«Número de control o contraseña incorrectos»'),
                  '. Revise los datos y vuelva a intentarlo.']))
-cap.append(heading(3, 'La primera vez: el nombre del alumno', anc()))
-cap.append(para(['La primera vez que se inicia sesión, la aplicación pregunta ', ('b', '«¿Cómo te llamas?»'), '. Escriba el ',
+cap.append(heading(3, 'El nombre del alumno', anc()))
+cap.append(para(['Al iniciar sesión, la aplicación muestra el nombre del alumno registrado en el sistema escolar. Ese nombre se usa en las '
+                 'inscripciones y se puede cambiar en Mi cuenta (sección 3.8).']))
+cap.append(para(['Si el sistema no tiene registrado el nombre, la primera vez la aplicación pregunta ', ('b', '«¿Cómo te llamas?»'), '. Escriba el ',
                  ('b', 'nombre y al menos un apellido'), ' (por ejemplo, ', ('m', 'Luis Pérez Gómez'), ') y toque ', ('b', 'Continuar'),
-                 '. Este nombre se usa en las inscripciones. Si la sesión no es del alumno, toque ', ('b', 'No soy yo, cerrar sesión'), '.']))
+                 '. Si la sesión no es del alumno, toque ', ('b', 'No soy yo, cerrar sesión'), '.']))
 add(capturas([('04_nombre.png', 'Captura del nombre')]))
 add(recuadro('Nota.', ['La aplicación recuerda la sesión: la próxima vez que se abra entrará directamente a los avisos, hasta que se cierre la sesión (sección 3.8).']))
 
@@ -380,7 +376,7 @@ bp.addprevious(nb)
 # FAQ nuevas al final de Preguntas frecuentes
 c12 = buscar(lambda s: s.startswith('12. Soporte'))
 faq = [
-    ('¿La aplicación funciona en iPhone?', 'No. En esta versión la aplicación está disponible solo para celulares Android.'),
+    ('¿La aplicación funciona en iPhone?', 'No. Por ahora la aplicación está disponible solo para celulares Android.'),
     ('¿Qué hago si no recuerdo la contraseña de la aplicación?', 'La contraseña son las 4 primeras letras de la CURP del alumno, en mayúsculas o minúsculas.'),
     ('La aplicación dice «Sin conexión con el campus», pero el celular tiene Internet. ¿Qué pasa?',
      'Abra Estado del servidor (sección 3.9). Si los servicios aparecen «Sin respuesta», el problema está en el sistema y no en el celular: '
@@ -427,6 +423,21 @@ for el in body.iterchildren():
     nl = linea_indice(nivel1_tpl if est == 'Heading1' else nivel2_tpl, txt, bm.get(WNS + 'name'), PAGINAS.get(txt, 0))
     ancla.addnext(nl)
     ancla = nl
+
+# ---------- 5. Sin guiones largos ----------
+GUIONES = [
+    ('tres servicios independientes —Avisos, Talleres e Inscripciones— y, si', 'tres servicios independientes (Avisos, Talleres e Inscripciones) y, si'),
+    ('Antes de comenzar a trabajar —o si algo no responde como se espera— se puede', 'Antes de comenzar a trabajar, o si algo no responde como se espera, se puede'),
+]
+for t in body.iter(WNS + 't'):
+    if t.text and '—' in t.text:
+        for a, b in GUIONES:
+            t.text = t.text.replace(a, b)
+        if t.text.strip() == '—':
+            t.text = 'Sin código'
+quedan = [t.text for t in body.iter(WNS + 't') if t.text and ('—' in t.text or '–' in t.text)]
+if quedan:
+    raise SystemExit(f'Quedan guiones largos: {quedan}')
 
 d.save(SAL)
 print('ok', SAL)
