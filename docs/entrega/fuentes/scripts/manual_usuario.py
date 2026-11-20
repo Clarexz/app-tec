@@ -112,6 +112,10 @@ def recuadro(titulo, segs, fill='FDEBF4', borde='E5097F'):
 
 # capturas: fila de 1 a 3 imágenes con pie, en una tabla sin bordes
 def capturas(items):
+    import os
+    items = [it for it in items if os.path.exists(f'{PH}/{it[0]}')]  # sin captura: no se inserta nada
+    if not items:
+        return []
     n = len(items)
     ancho = 10224 // n
     sinborde = ''.join(f'<w:{s} w:val="none" w:color="FFFFFF" w:sz="0"/>' for s in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'))
@@ -299,8 +303,9 @@ add(lista([['Toque la pestaña ', ('b', 'Talleres'), '. Cada taller muestra su n
             ('b', '«Ya estás inscrito»'), '.']]))
 add(capturas([('06_talleres.png', 'Lista de talleres'), ('07_buscar_taller.png', 'Búsqueda por número'), ('09_detalle_taller.png', 'Detalle del taller')]))
 cap.append(para(['Si el número no corresponde a ningún taller (por ejemplo, ', ('m', '999'), '), debajo del campo aparece ',
-                 ('b', '«Ese taller no existe»'), '. Revise el número o elija un taller de la lista.']))
-add(capturas([('08_taller_no_existe.png', 'Taller inexistente')]))
+                 ('b', '«Ese taller no existe»'), '. Revise el número o elija un taller de la lista. Si se busca una palabra que no aparece en '
+                 'ningún taller, la aplicación muestra ', ('b', '«Sin coincidencias»'), ' y el botón ', ('b', 'Borrar búsqueda'), '.']))
+add(capturas([('08_sin_coincidencias.png', 'Búsqueda sin coincidencias')]))
 
 cap.append(heading(2, '3.6 Inscribirse en un taller', anc()))
 cap.append(para('Hay dos formas de llegar al formulario de inscripción:'))

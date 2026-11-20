@@ -6,7 +6,7 @@ Matriz de pruebas de aceptación de la app (`docs/Integracion_App_Servidor.md` �
 
 > Datos ficticios: `21580001` (cuenta con inscripciones) y `21580099` (cuenta sin inscripciones) son números de control de ejemplo; usa las cuentas de prueba que te dé el equipo. No escribas contraseñas en este documento.
 
-Cómo llenar: **Obtenido** = lo que se vio en el celular (con ✅ o ❌ al inicio). **Captura** = archivo en `docs/entrega/capturas/`. Las capturas compartidas con el manual de usuario llevan el mismo nombre.
+Capturas recibidas el 20/11/2026 desde el celular (APK que muestra la versión 1.1.0 en Mi cuenta). Cómo llenar: **Obtenido** = lo que se vio en el celular (con ✅ o ❌ al inicio). **Captura** = archivo en `docs/entrega/capturas/`. Las capturas compartidas con el manual de usuario llevan el mismo nombre.
 
 ## A. Pruebas en el celular contra el servidor real (las llena el equipo)
 
@@ -14,21 +14,21 @@ Requieren el **APK** instalado y el servidor real; desde el entorno donde se esc
 
 | # | Prueba | Datos | Esperado | Obtenido | Captura |
 |---|---|---|---|---|---|
-| 0 | Abrir la app sin sesión | — | Pantalla “Inicia sesión” | | `02_login.png` |
-| 0b | Entrar con contraseña incorrecta | No. de control válido + contraseña equivocada | Aviso “Número de control o contraseña incorrectos” y vibración | | `03_login_error.png` |
+| 0 | Abrir la app sin sesión | — | Pantalla “Inicia sesión” | ✅ Aparece “Inicia sesión” con los campos vacíos | `02_login.png` |
+| 0b | Entrar con contraseña incorrecta | No. de control válido + contraseña equivocada | Aviso “Número de control o contraseña incorrectos” y vibración | ✅ Aviso “Número de control o contraseña incorrectos” | `03_login_error.png` |
 | 0c | Entrar con la cuenta de prueba (primera vez) | Cuenta de prueba del equipo | Pide “¿Cómo te llamas?” y luego abre Avisos | | `04_nombre.png` |
-| 1 | Abrir Avisos | — | Los 3 avisos del servidor (Bienvenida, Inicio de talleres, Inscripciones); el primero destacado | | `05_avisos.png` |
-| 2 | Abrir Talleres | — | Los 3 talleres con su horario | | `06_talleres.png` |
+| 1 | Abrir Avisos | — | Los 3 avisos del servidor (Bienvenida, Inicio de talleres, Inscripciones); el primero destacado | ✅ Bienvenida (destacado), Inicio de talleres e Inscripciones | `05_avisos.png` |
+| 2 | Abrir Talleres | — | Los 3 talleres con su horario | ✅ Los 3 talleres con horario; el #3 con insignia “Inscrito” | `06_talleres.png` |
 | 3 | Buscar taller **1** | Buscador: `1` → “Ver taller #1” | Detalle de “Programación en Python” | | `p03_detalle_taller_1.png` |
-| 4 | Buscar taller **999** | Buscador: `999` → “Ver taller #999” | “Ese taller no existe” bajo el campo | | `08_taller_no_existe.png` |
-| 5 | Inscribirme al taller 2 | Sesión `21580001`, taller 2 | “¡Listo, ya estás inscrito!” con “Diseño UI/UX Móvil”, Martes y Jueves 14:00 - 16:00, y folio | | `13_inscripcion_exito.png` |
-| 6 | Repetir la inscripción | Taller 2 otra vez | El detalle muestra “Ya estás inscrito” y en Inscribirme aparece “Ya inscrito” (no deja enviar). Si llega a enviarse: Banner “Ya estás inscrito” (409) | | `19_ya_inscrito.png` |
+| 4 | Buscar taller **999** | Buscador: `999` → “Ver taller #999” | “Ese taller no existe” bajo el campo | | (pendiente; `08_sin_coincidencias.png` muestra la búsqueda por palabra) |
+| 5 | Inscribirme al taller 2 | Sesión `21580001`, taller 2 | “¡Listo, ya estás inscrito!” con “Diseño UI/UX Móvil”, Martes y Jueves 14:00 - 16:00, y folio | ✅ “¡Listo, ya estás inscrito!”, Diseño UI/UX Móvil, Martes y Jueves 14:00 - 16:00, folio #8 (sesión 22580076) | `13_inscripcion_exito.png` |
+| 6 | Repetir la inscripción | Taller 2 otra vez | El detalle muestra “Ya estás inscrito” y en Inscribirme aparece “Ya inscrito” (no deja enviar). Si llega a enviarse: Banner “Ya estás inscrito” (409) | ✅ El detalle del taller 2 muestra “Ya estás inscrito” | `19_ya_inscrito.png` |
 | 7 | Taller inexistente al inscribir | Abrir `campusconectado://inscribirme?taller=999` | “No encontramos el taller #999. Elige otro de la lista.” y no deja enviar | | `p07_taller_inexistente.png` |
 | 8 | Enviar sin elegir taller | Inscribirme sin taller | Botón “Inscribirme” deshabilitado | | `p08_boton_deshabilitado.png` |
-| 9 | Mis inscripciones | Sesión `21580001` | Inscripción del taller 2 con nombre, horario y folio | | `14_mis_inscripciones.png` |
+| 9 | Mis inscripciones | Sesión `21580001` | Inscripción del taller 2 con nombre, horario y folio | ✅ 2 talleres: #2 (folio #8) y #3 (folio #7), con nombre y horario (sesión 22580076) | `14_mis_inscripciones.png` |
 | 10 | Mis inscripciones vacía | Sesión `21580099` (sin inscripciones) | “Aún no tienes inscripciones. ¿Buscamos un taller?” con botón a Talleres | | `15_sin_inscripciones.png` |
-| 11 | Sin red | Modo avión → Avisos → deslizar para recargar → quitar modo avión → Reintentar | “Sin conexión con el campus” con Reintentar; al reconectar carga los avisos | | `18_sin_conexion.png`, `p11_reconexion.png` |
-| 12 | Estado del servidor | Mi cuenta → Estado del servidor | Los 3 servicios “En línea” con ms | | `17_estado_servidor.png` |
+| 11 | Sin red | Modo avión → Avisos → deslizar para recargar → quitar modo avión → Reintentar | “Sin conexión con el campus” con Reintentar; al reconectar carga los avisos | ✅ “Sin conexión con el campus” con Reintentar (falta la captura de la reconexión) | `18_sin_conexion.png`, `p11_reconexion.png` |
+| 12 | Estado del servidor | Mi cuenta → Estado del servidor | Los 3 servicios “En línea” con ms | ✅ Los 3 servicios “En línea” (161, 160 y 161 ms); “Todo en línea” | `17_estado_servidor.png` |
 | 13 | Persistencia | El equipo del servidor borra el Pod de inscripciones → Mis inscripciones → recargar | La inscripción del taller 2 sigue apareciendo | | `p13_persistencia.png` |
 | 14 | Recuperación | Borran el Pod de avisos → Avisos → Reintentar | Vuelve a cargar en pocos segundos | | `p14_recuperacion.png` |
 | 15 | Cleartext en el APK | Probar 1, 2 y 5 en el **APK** (no en Expo Go) | Cargan igual que en Expo Go | | — |
