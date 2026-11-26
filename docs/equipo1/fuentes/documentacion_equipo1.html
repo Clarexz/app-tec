@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Documentación del Equipo 1 · v1.0</title>
+<style>
+@page {
+  size: letter;
+  margin: 24mm 18mm 20mm 18mm;
+  @top-left { content: ""; vertical-align: bottom; padding-bottom: 3mm; border-bottom: 0.6pt solid #E6DCC8; }
+  @top-right { content: "Documentación del Equipo 1 · v1.0"; font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: bottom; padding-bottom: 3mm; border-bottom: 0.6pt solid #E6DCC8; }
+  @bottom-left { content: "CampusConectado · Servicios en la Nube · TecNM Campus Reynosa"; font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: top; padding-top: 3mm; border-top: 0.6pt solid #E6DCC8; }
+  @bottom-right { content: "Página " counter(page) " de " counter(pages); font: 7.5pt "Liberation Sans", Arial, sans-serif; color: #555; vertical-align: top; padding-top: 3mm; border-top: 0.6pt solid #E6DCC8; }
+}
+@page :first { @top-left { content: none; border: none } @top-right { content: none; border: none } @bottom-left { content: none; border: none } @bottom-right { content: none; border: none } }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { font: 9.6pt/1.42 "Liberation Sans", Arial, sans-serif; color: #141414; margin: 0; }
+p { margin: 0 0 7pt; text-align: justify; }
+h1 { font-size: 15.5pt; color: #A8055E; margin: 16pt 0 9pt; padding-bottom: 5pt; border-bottom: 1.2pt solid #E5097F; break-after: avoid; }
+h2 { font-size: 11.6pt; margin: 12pt 0 6pt; break-after: avoid; }
+h3 { font-size: 10.4pt; color: #A8055E; margin: 10pt 0 5pt; break-after: avoid; }
+.nuevo-cap { break-before: page; }
+code, .mono { font-family: "Liberation Mono", "Courier New", monospace; font-size: 8.6pt; color: #A8055E; }
+ul, ol { margin: 0 0 8pt; padding-left: 16pt; }
+ul li::marker { color: #E5097F; }
+ol li::marker { color: #A8055E; font-weight: bold; }
+li { margin-bottom: 3pt; text-align: justify; }
+table { width: 100%; border-collapse: collapse; margin: 4pt 0 10pt; font-size: 8.4pt; break-inside: auto; }
+th { background: #141414; color: #fff; text-align: left; padding: 4pt 6pt; font-weight: bold; border: 0.5pt solid #D9CDB4; }
+td { padding: 4pt 6pt; border: 0.5pt solid #D9CDB4; vertical-align: middle; }
+tbody tr:nth-child(even) td { background: #FBF6EC; }
+tr { break-inside: avoid; }
+td code, th code { font-size: 8pt; }
+.code { background: #F3E6CB; padding: 7pt 11pt; margin: 4pt 0 10pt; break-inside: avoid; }
+.code .lbl { font-weight: bold; color: #A8055E; font-size: 7.6pt; margin-bottom: 3pt; }
+.code pre { margin: 0; font: 8pt/1.38 "Liberation Mono", "Courier New", monospace; color: #141414; white-space: pre-wrap; }
+.callout { padding: 7pt 11pt; margin: 6pt 0 11pt; font-size: 8.8pt; break-inside: avoid; text-align: justify; }
+.nota { background: #FDEBF4; border: 0.9pt solid #E5097F; }
+.imp { background: #FFF4D6; border: 0.9pt solid #E8B84A; }
+.callout b:first-child { margin-right: 4pt; }
+figure { margin: 6pt 0 12pt; text-align: center; break-inside: avoid; }
+figure img { max-width: 100%; }
+figcaption { font-style: italic; font-size: 8pt; color: #666; margin-top: 4pt; }
+.nuevo { display: inline-block; font-size: 6.8pt; font-weight: bold; color: #fff; background: #E5097F; border-radius: 3pt; padding: 0.5pt 4pt; vertical-align: 2pt; margin-left: 5pt; }
+/* portada */
+.portada { height: 235mm; position: relative; }
+.portada .logo { width: 56mm; margin-top: 4mm; }
+.portada .kicker { margin-top: 30mm; font-size: 8.8pt; letter-spacing: 2.6pt; font-weight: bold; color: #A8055E; }
+.portada h1.titulo { font-size: 27pt; color: #141414; border: none; margin: 8pt 0 7pt; padding: 0; line-height: 1.15; }
+.portada .sub { font-size: 12pt; color: #555; margin-bottom: 11pt; }
+.portada .regla { border-top: 2pt solid #E5097F; margin-bottom: 26pt; }
+.portada table td { border: none; border-bottom: 0.5pt solid #E6DCC8; background: none !important; font-size: 9.4pt; padding: 5pt 0; }
+.portada table td:first-child { width: 47mm; font-weight: bold; color: #A8055E; font-size: 8.8pt; }
+.portada .aviso { margin-top: 24pt; font-style: italic; font-size: 7.8pt; color: #555; }
+/* índice */
+.toc h1 { border: none; color: #141414; font-size: 17pt; margin-top: 0; padding-bottom: 0; }
+.toc .l1, .toc .l2 { display: flex; align-items: baseline; }
+.toc .l1 { font-weight: bold; margin-top: 4.5pt; font-size: 9.3pt; }
+.toc .l2 { padding-left: 13pt; font-size: 8.3pt; color: #333; margin-top: 0.8pt; }
+.toc .fill { flex: 1; border-bottom: 0.9pt dotted #333; margin: 0 3pt 3pt; }
+.toc a { color: inherit; text-decoration: none; }
+.small { font-size: 8pt; color: #555; }
+/* agregados de esta documentación */
+.fila { display: flex; justify-content: space-around; align-items: flex-start; gap: 6mm; margin: 6pt 0 12pt; break-inside: avoid; }
+.fila figure { margin: 0; flex: 0 0 auto; }
+.fila figure img { width: 36mm; border: 0.5pt solid #E6DCC8; }
+.fila.cuatro figure img { width: 33mm; }
+.callout.expo { background: #FBF6EC; border: 0.9pt solid #141414; }
+.cifras { display: flex; gap: 4mm; margin: 6pt 0 12pt; break-inside: avoid; }
+.cifras div { flex: 1; background: #F3E6CB; padding: 7pt 8pt; }
+.cifras b { display: block; font-size: 17pt; color: #A8055E; line-height: 1.1; }
+.cifras span { font-size: 7.8pt; color: #333; }
+.fase { display: inline-block; font-size: 7pt; font-weight: bold; letter-spacing: 1.2pt; color: #A8055E; margin-bottom: 2pt; }
+.toc .l1 { margin-top: 2pt; font-size: 9pt; } .toc .l2 { margin-top: 0; font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- ============================== PORTADA ============================== -->
+<section class="portada">
+  <img class="logo" src="img/logo.png" alt="Ravyn Studio">
+  <div class="kicker">CAMPUSCONECTADO · DOCUMENTACIÓN DEL EQUIPO 1</div>
+  <h1 class="titulo">Cómo construimos la app</h1>
+  <div class="sub">Desarrollo de la aplicación móvil y su integración con los servicios del backend, de la especificación al APK</div>
+  <div class="regla"></div>
+  <table>
+    <tr><td>Sistema</td><td>CampusConectado</td></tr>
+    <tr><td>Equipo</td><td>Equipo 1 · App e integración</td></tr>
+    <tr><td>Asignatura</td><td>Servicios en la Nube</td></tr>
+    <tr><td>Institución</td><td>Tecnológico Nacional de México · Instituto Tecnológico de Reynosa</td></tr>
+    <tr><td>Elaboró</td><td>Ravyn Studio</td></tr>
+    <tr><td>Uso</td><td>Documento interno del equipo, base para la presentación del desarrollo</td></tr>
+    <tr><td>Versión de la app</td><td>1.2.0</td></tr>
+    <tr><td>Fecha</td><td>26 de noviembre de 2026</td></tr>
+  </table>
+  <div class="aviso">Todos los datos que aparecen en este documento son ficticios. No contiene contraseñas, claves privadas ni datos personales reales de alumnos.</div>
+</section>
+
+<!-- ============================== ÍNDICE ============================== -->
+<section class="toc" style="break-before: page">
+  <h1>Índice</h1>
+  <!--TOC-->
+</section>
+
+<!-- ============================== 1 ============================== -->
+<h1 id="s1" class="nuevo-cap">1. Introducción</h1>
+<h2 id="s1-1">1.1 Propósito del documento</h2>
+<p>Este documento cuenta, parte por parte, cómo el <b>Equipo 1</b> construyó la aplicación móvil <b>CampusConectado</b> y la conectó con los tres servicios del backend: desde la especificación inicial hasta la versión 1.2.0 instalada en el celular. Está pensado para preparar la presentación del equipo: cada capítulo corresponde a un bloque de la exposición y trae lo que conviene mostrar en pantalla.</p>
+<p>No sustituye al <i>Manual de usuario</i> (cómo se usa la app) ni al <i>Manual técnico de servicios e integración</i> (contrato completo de las APIs). Aquí el foco es el <b>proceso</b>: qué se decidió, en qué orden se hizo, qué problemas aparecieron y cómo se resolvieron.</p>
+
+<h2 id="s1-2">1.2 Qué le tocó al Equipo 1</h2>
+<table>
+  <thead><tr><th style="width:30%">Responsabilidad</th><th>En qué consistió</th></tr></thead>
+  <tbody>
+    <tr><td>Aplicación móvil</td><td>Diseñar y programar la app Android para alumnos: avisos, talleres, inscripción y consulta de inscripciones.</td></tr>
+    <tr><td>Integración</td><td>Consumir los servicios de Avisos (Equipo 2), Talleres (Equipo 3) e Inscripciones (Equipo 4) y traducir cada respuesta en un mensaje claro para el alumno.</td></tr>
+    <tr><td>Calidad</td><td>Probar la app contra la matriz de pruebas de la práctica, primero con datos de prueba y después contra el servidor real.</td></tr>
+    <tr><td>Entrega</td><td>Generar el APK instalable con versiones numeradas y documentar el trabajo.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s1-3">1.3 El resultado en números</h2>
+<div class="cifras">
+  <div><b>3</b><span>versiones publicadas (1.0.0, 1.1.0 y 1.2.0)</span></div>
+  <div><b>8</b><span>pantallas: login, 4 pestañas, detalle, Mi cuenta y Estado</span></div>
+  <div><b>44</b><span>archivos de código TypeScript (unas 3,300 líneas)</span></div>
+  <div><b>20/20</b><span>verificaciones automáticas aprobadas</span></div>
+</div>
+
+<h2 id="s1-4">1.4 Cómo usar este documento en la presentación</h2>
+<ul>
+  <li>Los capítulos 2 a 9 siguen el orden real del desarrollo. Cada uno puede ser una o dos diapositivas.</li>
+  <li>Los recuadros <b>En la presentación</b> indican qué mostrar en vivo o en captura.</li>
+  <li>El capítulo 12 trae un guion sugerido con tiempos.</li>
+  <li>Las rutas de archivos, comandos y fragmentos de código aparecen en <code>letra monoespaciada</code>.</li>
+</ul>
+<div class="callout expo"><b>En la presentación.</b> Abrir con la app instalada en el celular y la pantalla de inicio de sesión. Decir en una frase qué hace la app y que el resto de la exposición explica cómo se llegó ahí.</div>
+
+<!-- ============================== 2 ============================== -->
+<h1 id="s2" class="nuevo-cap">2. Punto de partida</h1>
+<h2 id="s2-1">2.1 El encargo</h2>
+<p>La práctica pedía una app para que los alumnos del campus consultaran avisos y talleres, se inscribieran a un taller y revisaran sus inscripciones. El sistema completo lo formaban cuatro equipos: tres construían un servicio web cada uno y el Equipo 1 construía la app que los usa.</p>
+<figure><img src="img/fig1_arquitectura.jpg" style="width:100%"><figcaption>Figura 1. Arquitectura del sistema: la app consume los tres servicios por HTTP en la IP pública del servidor.</figcaption></figure>
+
+<h2 id="s2-2">2.2 El contrato acordado entre equipos</h2>
+<p>Antes de programar se acordó el contrato de cada servicio. La app se construyó contra ese contrato, sin esperar a que los servicios existieran.</p>
+<table>
+  <thead><tr><th style="width:18%">Servicio</th><th style="width:12%">Puerto</th><th style="width:38%">Rutas</th><th>Respuestas relevantes</th></tr></thead>
+  <tbody>
+    <tr><td>Avisos</td><td><code>30001</code></td><td><code>GET /salud</code>, <code>GET /avisos</code></td><td>200 con la lista de avisos</td></tr>
+    <tr><td>Talleres</td><td><code>30002</code></td><td><code>GET /salud</code>, <code>GET /talleres</code>, <code>GET /talleres/{id}</code></td><td>200 o 404 si el taller no existe</td></tr>
+    <tr><td>Inscripciones</td><td><code>30003</code></td><td><code>GET /salud</code>, <code>POST /inscripciones</code>, <code>GET /inscripciones?matricula=</code></td><td>201, 400, 404, 409 y 503</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s2-3">2.3 Restricciones que marcaron el diseño</h2>
+<ul>
+  <li><b>HTTP sin cifrar.</b> Android bloquea el tráfico <code>http://</code> en las apps de producción; había que permitirlo de forma explícita.</li>
+  <li><b>Sin autenticación ni CORS.</b> Los servicios no tienen login; la app tampoco puede probarse contra el servidor desde un navegador.</li>
+  <li><b>Servicios que llegan en momentos distintos.</b> Al empezar, Talleres todavía no estaba desplegado. La app tenía que avanzar sin él.</li>
+  <li><b>Fecha de entrega del sistema:</b> 12 de noviembre de 2026. La meta interna fue tener la app funcional con datos de prueba en uno o dos días.</li>
+</ul>
+
+<h2 id="s2-4">2.4 Elección de tecnología</h2>
+<p>La práctica sugería MIT App Inventor. El equipo eligió <b>Expo con React Native y TypeScript</b> porque la rúbrica pedía distinguir varios tipos de error y la app necesitaba navegación con parámetros, caché y builds repetibles.</p>
+<table>
+  <thead><tr><th style="width:20%">Tema</th><th style="width:38%">App Inventor</th><th>Expo + React Native (elegido)</th></tr></thead>
+  <tbody>
+    <tr><td>Errores</td><td>Difícil distinguir un timeout de una página HTML de error.</td><td>Un tipo <code>ApiError</code> con el código, el detalle del servidor y el código 0 para red o timeout.</td></tr>
+    <tr><td>Navegación</td><td>Una <i>Screen</i> por pantalla y estado global incómodo.</td><td>Expo Router: pestañas, rutas protegidas y parámetros (<code>/taller/[id]</code>).</td></tr>
+    <tr><td>Datos</td><td>Caché manual.</td><td>React Query: caché, reintentos y recarga al deslizar.</td></tr>
+    <tr><td>Código</td><td>Bloques visuales, difíciles de versionar.</td><td>TypeScript estricto, Git, revisión con <code>tsc</code> y ESLint.</td></tr>
+    <tr><td>APK</td><td>Exportación manual.</td><td>Compilación automática en GitHub Actions con número de versión.</td></tr>
+  </tbody>
+</table>
+<p>Lo que se asumió a cambio: una curva de aprendizaje mayor y un APK más pesado (unos 56 MB).</p>
+
+<!-- ============================== 3 ============================== -->
+<h1 id="s3">3. Línea de tiempo</h1>
+<p>El trabajo se organizó en fases. Todo el historial está en Git, así que cada fase se puede rastrear hasta sus commits.</p>
+<table>
+  <thead><tr><th style="width:15%">Fecha</th><th style="width:30%">Fase</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>6 nov</td><td>1. Base del proyecto</td><td>Proyecto Expo SDK 58, tema de marca y contrato interno para trabajar en paralelo.</td></tr>
+    <tr><td>6 nov</td><td>2. Capa de datos</td><td>Cliente HTTP, manejo de errores, datos de prueba y hooks de datos.</td></tr>
+    <tr><td>6 nov</td><td>3. Componentes y pantallas</td><td>14 componentes propios y las 6 pantallas de la primera versión.</td></tr>
+    <tr><td>6 nov</td><td>4. Pruebas y CI</td><td>Matriz de 13 pruebas aprobada con datos de prueba; revisión automática en cada cambio.</td></tr>
+    <tr><td>6 nov</td><td>5. Releases automáticos</td><td>APK compilado en GitHub Actions. <b>Versión 1.0.0.</b></td></tr>
+    <tr><td>12 nov</td><td>6. Sesión y servidor real</td><td>Inicio de sesión, fin de los datos de prueba e integración con los tres servicios. <b>Versión 1.1.0.</b></td></tr>
+    <tr><td>16 nov</td><td>7. Padrón de alumnos</td><td>Inicio de sesión con padrón y contraseña calculada de la CURP. <b>Versión 1.2.0.</b></td></tr>
+    <tr><td>20 nov</td><td>8. Evidencias y manuales</td><td>Capturas reales desde el celular, manual de usuario y manual técnico integrados.</td></tr>
+  </tbody>
+</table>
+<div class="callout expo"><b>En la presentación.</b> Esta tabla funciona como diapositiva de agenda: cada fila es un bloque de la exposición.</div>
+
+<!-- ============================== 4 ============================== -->
+<h1 id="s4" class="nuevo-cap">4. Fase 1 · Base del proyecto</h1>
+<h2 id="s4-1">4.1 Creación del proyecto</h2>
+<p>Se partió de la plantilla oficial de Expo (SDK 58) con Expo Router y TypeScript. Se quitaron los ejemplos de la plantilla y se instalaron solo las dependencias necesarias, siempre con <code>npx expo install</code> para que Expo eligiera versiones compatibles.</p>
+<div class="code"><div class="lbl">Terminal</div><pre>npx create-expo-app@latest campus --template default
+npx expo install @tanstack/react-query @react-native-async-storage/async-storage \
+  lucide-react-native react-native-svg expo-build-properties expo-haptics \
+  @expo-google-fonts/funnel-display @expo-google-fonts/funnel-sans @expo-google-fonts/caveat</pre></div>
+<table>
+  <thead><tr><th style="width:32%">Necesidad</th><th>Paquete</th></tr></thead>
+  <tbody>
+    <tr><td>Navegación</td><td><code>expo-router</code> (pestañas y pilas)</td></tr>
+    <tr><td>Datos del servidor y caché</td><td><code>@tanstack/react-query</code></td></tr>
+    <tr><td>Guardar la sesión en el teléfono</td><td><code>@react-native-async-storage/async-storage</code></td></tr>
+    <tr><td>Íconos</td><td><code>lucide-react-native</code> y <code>react-native-svg</code></td></tr>
+    <tr><td>Permitir HTTP en Android</td><td><code>expo-build-properties</code> (<code>usesCleartextTraffic</code>)</td></tr>
+    <tr><td>Vibración al inscribirse</td><td><code>expo-haptics</code></td></tr>
+    <tr><td>Tipografías de la marca</td><td><code>@expo-google-fonts</code>: Funnel Display, Funnel Sans y Caveat</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s4-2">4.2 Tema de marca</h2>
+<p>Antes de cualquier pantalla se definió el tema en <code>src/theme/</code>: colores, tipografía, espacios, radios y sombras. Ninguna pantalla escribe un color o una fuente a mano; todas toman los valores del tema.</p>
+<table>
+  <thead><tr><th style="width:18%">Color</th><th style="width:16%">Valor</th><th>Uso en la app</th></tr></thead>
+  <tbody>
+    <tr><td>Rosa</td><td><code>#E5097F</code></td><td>Acción principal: un solo botón rosa por pantalla.</td></tr>
+    <tr><td>Rosa profundo</td><td><code>#A8055E</code></td><td>Texto pequeño de acento y enlaces.</td></tr>
+    <tr><td>Sol</td><td><code>#FFC93C</code></td><td>Chips con el número de taller.</td></tr>
+    <tr><td>Tinta</td><td><code>#141414</code></td><td>Texto y estructura.</td></tr>
+    <tr><td>Marfil</td><td><code>#FFF6E6</code></td><td>Fondo de la app.</td></tr>
+    <tr><td>Hoja</td><td><code>#1E8A4C</code></td><td>Éxito y servicio en línea.</td></tr>
+  </tbody>
+</table>
+<div class="callout nota"><b>Nota.</b> En Android, con fuentes personalizadas, el peso de letra no elige la variante. Cada peso se registró como una familia distinta (por ejemplo <code>FunnelDisplay_800ExtraBold</code>) y se usa por su nombre.</div>
+
+<h2 id="s4-3">4.3 Contrato interno para trabajar en paralelo</h2>
+<p>Para avanzar varias partes al mismo tiempo se escribió <code>CONTRATO.md</code>: los nombres y firmas exactos de cada módulo (configuración, capa de datos, hooks, componentes y pantallas). Con ese acuerdo, la capa de datos, los componentes y las pantallas se programaron en paralelo y encajaron al unirlos, con un solo ajuste de integración.</p>
+<p>El desarrollo se apoyó en <b>Claude Code</b> como asistente de programación, con varios agentes trabajando al mismo tiempo sobre partes distintas del contrato. El equipo definió la especificación, revisó cada entrega y tomó las decisiones de diseño e integración.</p>
+
+<h2 id="s4-4">4.4 Estructura de carpetas</h2>
+<div class="code"><div class="lbl">Estructura del repositorio</div><pre>app-tec/
+├── app.json, app.config.ts   Configuración de Expo (paquete Android, plugins, versión)
+├── plugins/                  Firma del APK con llave propia (opcional)
+├── .github/workflows/        ci.yml (revisiones) · release.yml (APK)
+└── src/
+    ├── app/                  Pantallas (cada archivo es una ruta)
+    │   ├── _layout.tsx       Fuentes, sesión y rutas protegidas
+    │   ├── login.tsx · perfil.tsx · estado.tsx · taller/[id].tsx
+    │   └── (tabs)/           Avisos, Talleres, Inscribirme, Mis inscripciones
+    ├── api/                  Cliente HTTP, errores y llamadas al servidor
+    ├── hooks/                Hooks de datos (React Query)
+    ├── auth/                 Sesión, padrón y cálculo de la CURP
+    ├── components/           Componentes propios
+    ├── theme/                Colores, tipografía y espacios
+    ├── types/api.ts          Tipos del contrato
+    └── config.ts             Direcciones de los servicios</pre></div>
+
+<!-- ============================== 5 ============================== -->
+<h1 id="s5" class="nuevo-cap">5. Fase 2 · Capa de datos</h1>
+<h2 id="s5-1">5.1 Arquitectura en capas</h2>
+<p>La regla principal del proyecto: <b>ninguna pantalla llama al servidor directamente</b>. Cada petición recorre las mismas capas, y así el manejo de errores, los tiempos de espera y los reintentos están en un solo lugar.</p>
+<div class="code"><div class="lbl">Recorrido de una petición</div><pre>Pantalla  →  Hook (React Query)  →  api (interfaz CampusApi)  →  fetchJson  →  Servicio
+   ↑                                                                   │
+   └──────────── mensajeDeError: título + texto + detalle ◄────────────┘</pre></div>
+<table>
+  <thead><tr><th style="width:24%">Capa</th><th style="width:28%">Archivo</th><th>Responsabilidad</th></tr></thead>
+  <tbody>
+    <tr><td>Configuración</td><td><code>src/config.ts</code></td><td>Arma las tres direcciones a partir de las variables <code>EXPO_PUBLIC_*</code>.</td></tr>
+    <tr><td>Cliente HTTP</td><td><code>src/api/http.ts</code></td><td>Tiempo de espera, lectura de JSON y conversión de cualquier falla en <code>ApiError</code>.</td></tr>
+    <tr><td>Errores</td><td><code>src/api/errors.ts</code></td><td>Traduce cada código a un mensaje para el alumno.</td></tr>
+    <tr><td>Servicios</td><td><code>src/api/real.ts</code></td><td>Una función por ruta del contrato.</td></tr>
+    <tr><td>Hooks</td><td><code>src/hooks/index.ts</code></td><td>Caché, estados de carga y reintentos para cada operación.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5-2">5.2 El cliente HTTP</h2>
+<p><code>fetchJson</code> es la única función que habla con la red. Corta la petición a los <b>8 segundos</b>, tolera respuestas que no son JSON (por ejemplo, las páginas de error en HTML de Flask) y convierte cualquier falla en un <code>ApiError</code> con un código. El código <code>0</code> significa que no hubo respuesta: sin red o tiempo agotado.</p>
+<div class="code"><div class="lbl">src/api/http.ts (extracto)</div><pre>const controller = new AbortController();
+const timer = setTimeout(() => controller.abort(), config.timeoutMs); // 8 s
+try {
+  res = await fetch(url, { method, headers, body, signal: controller.signal });
+} catch (e) {
+  // Sin red o tiempo agotado: código 0
+  throw new ApiError(0, { context, message: 'Sin conexión' });
+}
+if (!res.ok) {
+  // Se toma "error" (o "mensaje") del cuerpo como detalle para la demo
+  throw new ApiError(res.status, { serverMessage, context });
+}</pre></div>
+
+<h2 id="s5-3">5.3 De un código HTTP a un mensaje claro</h2>
+<p>Cada respuesta del servidor se traduce en un mensaje con título, texto y siguiente paso. Debajo se muestra en letra pequeña el detalle que envió el servidor, útil para explicar el error en la demo.</p>
+<table>
+  <thead><tr><th style="width:15%">Código</th><th style="width:28%">Título en la app</th><th>Texto</th></tr></thead>
+  <tbody>
+    <tr><td>201</td><td>¡Listo, ya estás inscrito!</td><td>Te esperamos en <b>{taller}</b>, {horario}.</td></tr>
+    <tr><td>400</td><td>Faltan datos</td><td>Revisa tu número de control, tu nombre y el taller, y vuelve a intentarlo.</td></tr>
+    <tr><td>404</td><td>Ese taller no existe</td><td>Revisa el número del taller o elige uno de la lista.</td></tr>
+    <tr><td>409</td><td>Ya estás inscrito</td><td>Ya tienes lugar en este taller. Lo ves en Mis inscripciones.</td></tr>
+    <tr><td>503</td><td>Talleres no responde</td><td>Algo no salió de nuestro lado. Intenta de nuevo en un momento.</td></tr>
+    <tr><td>0 (sin red)</td><td>Sin conexión con el campus</td><td>No pudimos llegar al servidor. Revisa tu internet e intenta de nuevo.</td></tr>
+    <tr><td>Otro 5xx</td><td>Algo no salió</td><td>Ya lo estamos revisando; intenta de nuevo en un momento.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s5-4">5.4 Datos de prueba mientras llegaba el servidor</h2>
+<p>Como Talleres aún no existía, la capa de datos se escribió detrás de una interfaz (<code>CampusApi</code>) con dos implementaciones: la real y una de <b>datos de prueba</b> que se comportaba como el servidor: latencia de 300 a 800 ms, las mismas reglas de 400, 404 y 409, y folios incrementales. Desde la pantalla Estado del servidor se podían simular un 503, la falta de red y una latencia alta para demostrar el manejo de errores sin depender de nadie.</p>
+<p>Una variable de entorno elegía qué servicios iban con datos de prueba. Así, en cuanto Avisos e Inscripciones estuvieron arriba, la app los usó de verdad mientras Talleres seguía simulado.</p>
+<div class="callout nota"><b>Por qué importa.</b> Cambiar al servidor real no tocó ninguna pantalla: solo la capa de servicios y una variable. Es la lección técnica más importante del proyecto.</div>
+
+<h2 id="s5-5">5.5 Hooks de datos, caché y reintentos</h2>
+<table>
+  <thead><tr><th style="width:30%">Hook</th><th>Qué hace</th></tr></thead>
+  <tbody>
+    <tr><td><code>useAvisos</code></td><td>Lista de avisos con recarga al deslizar.</td></tr>
+    <tr><td><code>useTalleres</code></td><td>Catálogo de talleres; se reutiliza 30 s sin volver a pedirlo.</td></tr>
+    <tr><td><code>useTaller(id)</code></td><td>Detalle de un taller; no reintenta un 404.</td></tr>
+    <tr><td><code>useInscribir</code></td><td>Valida, envía la inscripción y actualiza Mis inscripciones al instante.</td></tr>
+    <tr><td><code>useInscripciones</code></td><td>Inscripciones del alumno, cruzadas con el catálogo para mostrar nombre y horario.</td></tr>
+    <tr><td><code>useSalud</code></td><td>Consulta los tres <code>/salud</code> en paralelo y mide el tiempo de respuesta.</td></tr>
+  </tbody>
+</table>
+<ul>
+  <li><b>Lecturas:</b> un reintento con 1 s de espera si falla la red o el servidor; nunca en errores 4xx.</li>
+  <li><b>Inscribirse:</b> sin reintentos, para no duplicar una inscripción.</li>
+</ul>
+
+<!-- ============================== 6 ============================== -->
+<h1 id="s6" class="nuevo-cap">6. Fase 3 · Componentes y pantallas</h1>
+<h2 id="s6-1">6.1 Componentes propios</h2>
+<p>No se usó ningún kit de interfaz. Primero se hicieron los componentes base y después todas las pantallas se armaron con ellos, lo que mantuvo el estilo uniforme.</p>
+<table>
+  <thead><tr><th style="width:26%">Componente</th><th>Para qué sirve</th></tr></thead>
+  <tbody>
+    <tr><td><code>Screen</code>, <code>Header</code></td><td>Fondo marfil, márgenes seguros, recarga al deslizar y encabezado de cada pantalla.</td></tr>
+    <tr><td><code>Text</code></td><td>Variantes tipográficas del tema (título, cuerpo, etiqueta, anotación).</td></tr>
+    <tr><td><code>Button</code>, <code>IconButton</code></td><td>Botón principal rosa, secundario y discreto, con estados de carga y deshabilitado.</td></tr>
+    <tr><td><code>Card</code>, <code>Chip</code></td><td>Tarjetas blancas o destacadas y el número de taller.</td></tr>
+    <tr><td><code>TextField</code>, <code>TallerPicker</code></td><td>Campos de captura y hoja inferior para elegir un taller.</td></tr>
+    <tr><td><code>StateView</code>, <code>Banner</code></td><td>Estados de carga, vacío y error con botón Reintentar; avisos dentro de formularios.</td></tr>
+    <tr><td><code>StatusDot</code>, <code>Footer</code></td><td>Indicador en línea / sin respuesta y el pie “Hecho por Ravyn Studio”.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s6-2">6.2 Las pantallas de la primera versión</h2>
+<p>La versión 1.0.0 tenía cuatro pestañas (Avisos, Talleres, Inscribirme e Inscripciones), el detalle de taller y la pantalla oculta de Estado del servidor. Cada pantalla resuelve sus cuatro estados: cargando, vacía, con error y con datos.</p>
+<div class="fila cuatro">
+  <figure><img src="img/v1_avisos-hola.png"><figcaption>Avisos</figcaption></figure>
+  <figure><img src="img/v1_picker.png"><figcaption>Elegir taller</figcaption></figure>
+  <figure><img src="img/v1_exito.png"><figcaption>Inscripción exitosa</figcaption></figure>
+  <figure><img src="img/v1_estado.png"><figcaption>Estado (datos de prueba)</figcaption></figure>
+</div>
+<p class="small" style="text-align:center">Capturas de la versión 1.0.0 con datos de prueba, tomadas durante las pruebas a 360 px de ancho.</p>
+
+<h2 id="s6-3">6.3 Flujo de navegación</h2>
+<p>El recorrido principal es <b>Talleres → Detalle → Inscribirme</b>: desde el detalle, el botón “Inscribirme aquí” abre el formulario con el taller ya elegido.</p>
+<figure><img src="img/fig_flujo_vertical.png" style="height:165mm"><figcaption>Figura 2. Flujo de pantallas de la aplicación.</figcaption></figure>
+<div class="callout expo"><b>En la presentación.</b> Mostrar las capturas de la versión 1.0.0 junto a las de la 1.2.0 (capítulo 9) para que se vea cómo evolucionó la app.</div>
+
+<!-- ============================== 7 ============================== -->
+<h1 id="s7" class="nuevo-cap">7. Fase 4 · Pruebas y revisión automática</h1>
+<h2 id="s7-1">7.1 Matriz de pruebas con datos de prueba</h2>
+<p>Con la app completa, se corrió la matriz de 13 pruebas de la práctica en modo de datos de prueba, en pantalla de 360 px de ancho. Las 13 pasaron.</p>
+<table>
+  <thead><tr><th style="width:6%">#</th><th style="width:40%">Prueba</th><th>Resultado en la app</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Abrir Avisos</td><td>4 avisos; el primero destacado.</td></tr>
+    <tr><td>2</td><td>Abrir Talleres</td><td>5 talleres con número, nombre y horario.</td></tr>
+    <tr><td>3 y 4</td><td>Buscar taller 1 y taller 99</td><td>Abre el detalle del 1; “Ese taller no existe” para el 99.</td></tr>
+    <tr><td>5 y 6</td><td>Inscribir y repetir la inscripción</td><td>“¡Listo, ya estás inscrito!” y después “Ya estás inscrito”.</td></tr>
+    <tr><td>7 y 8</td><td>Enviar vacío y taller inexistente</td><td>“Faltan datos” y “Ese taller no existe”.</td></tr>
+    <tr><td>9</td><td>Talleres caído (simulado)</td><td>“Talleres no responde”.</td></tr>
+    <tr><td>10</td><td>Mis inscripciones</td><td>Nombre y horario de cada taller, con folio.</td></tr>
+    <tr><td>11</td><td>Sin red (simulado)</td><td>“Sin conexión con el campus” con Reintentar.</td></tr>
+    <tr><td>12</td><td>Estado del servidor</td><td>Los 3 servicios con su tiempo de respuesta.</td></tr>
+    <tr><td>13</td><td>Cerrar y reabrir</td><td>Datos del alumno precargados.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s7-2">7.2 Lo que encontraron las pruebas</h2>
+<table>
+  <thead><tr><th style="width:36%">Hallazgo</th><th>Corrección</th></tr></thead>
+  <tbody>
+    <tr><td>La pestaña “Mis inscripciones” se cortaba a 360 px.</td><td>La etiqueta pasó a “Inscripciones”; el título de la pantalla sigue completo.</td></tr>
+    <tr><td>Las etiquetas de la barra inferior se recortaban por abajo.</td><td>Barra más alta, ajustada al margen seguro del teléfono.</td></tr>
+    <tr><td>Un 404 al inscribirse mostraba un mensaje genérico.</td><td>El 404 de Inscripciones se reconoce como “Ese taller no existe”.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s7-3">7.3 Revisión automática en cada cambio (CI)</h2>
+<p>Cada vez que se sube código, GitHub Actions corre <code>ci.yml</code>. Si algo falla, el cambio se marca en rojo antes de llegar al APK.</p>
+<table>
+  <thead><tr><th style="width:35%">Revisión</th><th>Qué detecta</th></tr></thead>
+  <tbody>
+    <tr><td><code>npx tsc --noEmit</code></td><td>Errores de tipos en TypeScript.</td></tr>
+    <tr><td><code>npx expo lint</code></td><td>Problemas de estilo y errores comunes (desde la 1.1.0).</td></tr>
+    <tr><td><code>npx expo-doctor</code></td><td>Dependencias incompatibles con el SDK y problemas de configuración.</td></tr>
+    <tr><td><code>npx expo export -p android</code></td><td>Que el código de Android se empaquete sin errores.</td></tr>
+    <tr><td>Prueba del servidor</td><td>Desde la 1.2.0, revisión informativa de que los servicios responden desde Internet.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== 8 ============================== -->
+<h1 id="s8" class="nuevo-cap">8. Fase 5 · APK y releases automáticos</h1>
+<h2 id="s8-1">8.1 Cómo se compila el APK</h2>
+<p>El APK se compila en GitHub Actions con <code>release.yml</code>, sin cuenta de Expo ni créditos de compilación en la nube:</p>
+<ol>
+  <li><code>npx expo prebuild -p android</code> genera el proyecto nativo de Android a partir de <code>app.json</code>.</li>
+  <li><code>./gradlew assembleRelease</code> compila el APK de producción.</li>
+  <li>El APK se renombra con la versión y se publica como <i>Release</i> del repositorio.</li>
+</ol>
+<p>Se dispara de dos formas: subiendo una etiqueta <code>v*</code> o desde <b>Actions → Release → Run workflow</b>, escribiendo la versión y marcando <i>publicar</i>. La compilación tarda unos 17 minutos.</p>
+
+<h2 id="s8-2">8.2 HTTP en el APK</h2>
+<p>Desde Android 9, una app de producción bloquea <code>http://</code>. En Expo Go todo funcionaba porque Expo Go ya lo permite, pero el APK habría fallado con “Sin conexión con el campus”. Se habilitó en <code>app.json</code>:</p>
+<div class="code"><div class="lbl">app.json (plugins)</div><pre>["expo-build-properties", { "android": { "usesCleartextTraffic": true } }]</pre></div>
+<div class="callout imp"><b>Importante.</b> Este ajuste solo se puede comprobar en el APK instalado, no en Expo Go. Por eso la prueba de aceptación se hace siempre con el APK.</div>
+
+<h2 id="s8-3">8.3 Problemas al publicar la primera versión</h2>
+<table>
+  <thead><tr><th style="width:36%">Problema</th><th>Solución</th></tr></thead>
+  <tbody>
+    <tr><td>El entorno de desarrollo no permitía subir etiquetas al repositorio.</td><td>Se agregó la opción <i>publicar</i> al flujo: GitHub Actions crea la etiqueta y el release por su cuenta.</td></tr>
+    <tr><td>La acción que instala el SDK de Android fallaba a los 15 segundos.</td><td>Se usó el SDK que ya trae el servidor de GitHub y se actualizaron las acciones a Node 24.</td></tr>
+  </tbody>
+</table>
+<p>Con eso salió la <b>versión 1.0.0</b> el 6 de noviembre con dos APKs: uno con datos de prueba para la demo y otro conectado a Avisos e Inscripciones reales.</p>
+
+<h2 id="s8-4">8.4 Firma del APK</h2>
+<p>El plugin <code>plugins/withReleaseSigning.js</code> firma el APK con una llave propia si existen los secretos <code>ANDROID_KEYSTORE_*</code> en el repositorio. Sin ellos, se firma con la llave de depuración: sirve para instalarlo en la demo, pero no para Google Play.</p>
+
+<!-- ============================== 9 ============================== -->
+<h1 id="s9" class="nuevo-cap">9. Fases 6 y 7 · Servidor real e inicio de sesión</h1>
+<h2 id="s9-1">9.1 Del modo de prueba al servidor real (v1.1.0)</h2>
+<p>El 12 de noviembre los tres servicios ya estaban desplegados. El equipo decidió <b>quitar por completo los datos de prueba</b>: la app siempre consume el servidor real y se publica un solo APK. Como las pantallas solo conocían la interfaz <code>CampusApi</code>, el cambio no tocó la interfaz de usuario.</p>
+<p>Con la guía de integración del servidor se encontraron comportamientos que la app tenía que compensar:</p>
+<table>
+  <thead><tr><th style="width:42%">Comportamiento del servidor</th><th>Qué hace la app</th></tr></thead>
+  <tbody>
+    <tr><td>Solo revisa que existan los campos; acepta textos vacíos.</td><td>Valida antes de enviar y no manda nada incompleto.</td></tr>
+    <tr><td>La matrícula distingue mayúsculas (<code>a001</code> ≠ <code>A001</code>).</td><td>Normaliza siempre a mayúsculas y sin espacios.</td></tr>
+    <tr><td>Un Pod recién reiniciado rechaza conexiones 1 a 3 s.</td><td>Espera 1 s antes de reintentar una lectura.</td></tr>
+    <tr><td>Inscripciones tarda hasta 3 s en responder 503 si Talleres falla.</td><td>Timeout de 8 s y texto “Registrando…” mientras espera.</td></tr>
+    <tr><td>Mis inscripciones solo trae el número de taller.</td><td>Lo cruza con el catálogo para mostrar nombre y horario.</td></tr>
+    <tr><td>Las rutas inexistentes responden con HTML.</td><td>El cliente HTTP lo detecta y muestra un mensaje genérico.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s9-2">9.2 Sesión de alumno y rutas protegidas</h2>
+<p>La app pasó a pedir inicio de sesión con el <b>número de control</b>, que es lo que el servidor recibe como matrícula. La sesión se guarda en el teléfono, y Expo Router protege las rutas: sin sesión solo existen el login y el Estado del servidor.</p>
+<div class="code"><div class="lbl">src/app/_layout.tsx (extracto)</div><pre>&lt;Stack.Protected guard={!conSesion}&gt;
+  &lt;Stack.Screen name="login" /&gt;
+&lt;/Stack.Protected&gt;
+&lt;Stack.Protected guard={conSesion}&gt;
+  &lt;Stack.Screen name="(tabs)" /&gt;
+  &lt;Stack.Screen name="taller/[id]" /&gt;
+  &lt;Stack.Screen name="perfil" /&gt;
+&lt;/Stack.Protected&gt;</pre></div>
+<p>También se agregaron Mi cuenta, la búsqueda de talleres por nombre, la insignia “Inscrito” y la opción de no volver a elegir un taller en el que el alumno ya está inscrito.</p>
+
+<h2 id="s9-3">9.3 Padrón de alumnos y contraseña de la CURP (v1.2.0)</h2>
+<p>El servidor no tiene un servicio de login, así que el inicio de sesión se valida en la app contra un <b>padrón de alumnos ficticio</b> (<code>src/auth/padron.ts</code>). La contraseña son las <b>4 primeras letras de la CURP</b>, que la app calcula a partir del nombre según el instructivo de RENAPO: primer apellido, su primera vocal interna, segundo apellido y nombre, con las reglas de María y José, partículas como “de la”, la Ñ y las palabras altisonantes.</p>
+<p>Como el nombre llega del padrón, la app ya no tiene que preguntarlo. El cálculo se probó con 13 casos de CURP y 5 de inicio de sesión.</p>
+<div class="callout imp"><b>Limitación.</b> Las 4 letras se deducen del nombre, así que no son un secreto. Sirve para la demo, no para un sistema real. Con un servicio escolar real, la validación debe hacerse en el servidor con una contraseña que no se pueda deducir; en la app solo cambiaría la función <code>verificarCredenciales</code>.</div>
+
+<h2 id="s9-4">9.4 Secuencia de una inscripción</h2>
+<p>Este diagrama resume la integración: la app envía la inscripción, Inscripciones consulta a Talleres por la red interna del clúster y la respuesta vuelve convertida en mensaje.</p>
+<figure><img src="img/fig2_secuencia.jpg" style="width:82%"><figcaption>Figura 3. Secuencia de una inscripción entre la app y los servicios.</figcaption></figure>
+
+<h2 id="s9-5">9.5 La app en su versión final</h2>
+<div class="fila cuatro">
+  <figure><img src="img/02_login.png"><figcaption>Inicio de sesión</figcaption></figure>
+  <figure><img src="img/05_avisos.png"><figcaption>Avisos</figcaption></figure>
+  <figure><img src="img/06_talleres.png"><figcaption>Talleres</figcaption></figure>
+  <figure><img src="img/10_inscribirme.png"><figcaption>Inscribirme</figcaption></figure>
+</div>
+<div class="fila cuatro">
+  <figure><img src="img/13_inscripcion_exito.png"><figcaption>Inscripción registrada</figcaption></figure>
+  <figure><img src="img/14_mis_inscripciones.png"><figcaption>Mis inscripciones</figcaption></figure>
+  <figure><img src="img/16_mi_cuenta.png"><figcaption>Mi cuenta</figcaption></figure>
+  <figure><img src="img/17_estado_servidor.png"><figcaption>Estado del servidor</figcaption></figure>
+</div>
+<p class="small" style="text-align:center">Capturas tomadas desde el celular con el APK, contra el servidor real.</p>
+<div class="callout expo"><b>En la presentación.</b> Este es el mejor momento para la demo en vivo: iniciar sesión, buscar un taller, inscribirse y abrir Mis inscripciones. Cerrar con Estado del servidor mostrando los tres servicios en línea.</div>
+
+<!-- ============================== 10 ============================== -->
+<h1 id="s10" class="nuevo-cap">10. Problemas y soluciones</h1>
+<p>Resumen de los obstáculos del proyecto y cómo se resolvió cada uno. Funciona bien como diapositiva de cierre técnico.</p>
+<table>
+  <thead><tr><th style="width:33%">Problema</th><th style="width:33%">Causa</th><th>Solución</th></tr></thead>
+  <tbody>
+    <tr><td>Talleres no estaba desplegado al empezar.</td><td>Cada equipo avanzó a su ritmo.</td><td>Capa de datos detrás de una interfaz y datos de prueba que imitan al servidor.</td></tr>
+    <tr><td>El APK no podía llamar a <code>http://</code>.</td><td>Android 9+ bloquea HTTP sin cifrar.</td><td><code>usesCleartextTraffic</code> con <code>expo-build-properties</code>.</td></tr>
+    <tr><td>La app no se puede probar contra el servidor desde el navegador.</td><td>Los servicios no envían CORS.</td><td>Pruebas en Expo Go y en el APK.</td></tr>
+    <tr><td>El servidor aceptaba inscripciones vacías.</td><td>Solo valida que existan los campos.</td><td>Validación en la app antes de enviar.</td></tr>
+    <tr><td>Errores intermitentes al reiniciar un servicio.</td><td>Los Pods tardan 1 a 3 s en aceptar conexiones.</td><td>Un reintento con 1 s de espera en las lecturas.</td></tr>
+    <tr><td>Páginas de error en HTML.</td><td>Flask responde HTML en rutas inexistentes.</td><td>El cliente HTTP tolera respuestas que no son JSON.</td></tr>
+    <tr><td>No hay servicio de login.</td><td>Fuera del alcance del backend.</td><td>Padrón local y contraseña calculada de la CURP, aislados en una función reemplazable.</td></tr>
+    <tr><td>Falló la compilación del primer release.</td><td>Falla de la acción que instala el SDK de Android.</td><td>Uso del SDK preinstalado en el servidor de GitHub.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================== 11 ============================== -->
+<h1 id="s11">11. Verificación final</h1>
+<h2 id="s11-1">11.1 Verificaciones automáticas</h2>
+<p>Las pruebas de la capa de datos usan el código real de <code>src/api</code> contra una réplica local del servidor con el mismo contrato. Complementan las pruebas en el celular, pero no las sustituyen.</p>
+<table>
+  <thead><tr><th style="width:42%">Verificación</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>Tipos (<code>tsc</code>), lint y <code>expo-doctor</code></td><td>Sin errores; <code>expo-doctor</code> 20 de 20.</td></tr>
+    <tr><td>Empaquetado de Android</td><td>Bundle generado (6.9 MB).</td></tr>
+    <tr><td>Capa de datos contra la réplica del servidor</td><td>16 de 16 casos: 200, 201, 400, 404, 409, 503, HTML, timeout y sin red.</td></tr>
+    <tr><td>Cálculo de la CURP e inicio de sesión</td><td>13 casos de CURP y 5 de inicio de sesión aprobados.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="s11-2">11.2 Pruebas en el celular contra el servidor real</h2>
+<p>Con el APK instalado se confirmaron con captura los casos principales:</p>
+<table>
+  <thead><tr><th style="width:42%">Prueba</th><th>Resultado</th></tr></thead>
+  <tbody>
+    <tr><td>Abrir la app sin sesión y con contraseña incorrecta</td><td>✅ “Inicia sesión” y el aviso de datos incorrectos.</td></tr>
+    <tr><td>Avisos y Talleres</td><td>✅ Los 3 avisos y los 3 talleres reales con su horario.</td></tr>
+    <tr><td>Inscribirse al taller 2</td><td>✅ “¡Listo, ya estás inscrito!” con nombre, horario y folio.</td></tr>
+    <tr><td>Repetir la inscripción</td><td>✅ “Ya estás inscrito” en el detalle del taller.</td></tr>
+    <tr><td>Mis inscripciones</td><td>✅ Los talleres del alumno con nombre, horario y folio.</td></tr>
+    <tr><td>Sin red (modo avión)</td><td>✅ “Sin conexión con el campus” con Reintentar.</td></tr>
+    <tr><td>Estado del servidor</td><td>✅ Los 3 servicios en línea, con unos 160 ms cada uno.</td></tr>
+  </tbody>
+</table>
+<p>Quedan por documentar con captura en el celular: búsqueda del taller 999, inscripciones vacías, persistencia y recuperación al reiniciar un Pod, y cierre de sesión. El detalle está en <code>docs/entrega/Evidencias_pruebas_App.md</code>.</p>
+<div class="fila">
+  <figure><img src="img/18_sin_conexion.png"><figcaption>Sin conexión con el campus</figcaption></figure>
+  <figure><img src="img/19_ya_inscrito.png"><figcaption>Ya estás inscrito</figcaption></figure>
+  <figure><img src="img/03_login_error.png"><figcaption>Datos incorrectos</figcaption></figure>
+</div>
+
+<!-- ============================== 12 ============================== -->
+<h1 id="s12" class="nuevo-cap">12. Guion sugerido para la presentación</h1>
+<p>Propuesta para una exposición de unos 15 minutos. Los tiempos son orientativos; la demo en vivo es el bloque que más conviene cuidar.</p>
+<table>
+  <thead><tr><th style="width:6%">#</th><th style="width:22%">Bloque</th><th style="width:10%">Tiempo</th><th style="width:30%">Qué mostrar</th><th>Capítulo</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Presentación y objetivo</td><td>1 min</td><td>La app en el celular, pantalla de inicio de sesión.</td><td>1</td></tr>
+    <tr><td>2</td><td>Punto de partida</td><td>2 min</td><td>Figura 1 y la tabla del contrato.</td><td>2</td></tr>
+    <tr><td>3</td><td>Tecnología y base</td><td>1.5 min</td><td>Comparativa con App Inventor y el tema de marca.</td><td>2.4 y 4</td></tr>
+    <tr><td>4</td><td>Capa de datos</td><td>2.5 min</td><td>Recorrido de una petición y tabla de mensajes por código.</td><td>5</td></tr>
+    <tr><td>5</td><td>Pantallas y pruebas</td><td>2 min</td><td>Capturas de la 1.0.0 y la matriz de 13 pruebas.</td><td>6 y 7</td></tr>
+    <tr><td>6</td><td>APK automático</td><td>1.5 min</td><td>La página de Releases en GitHub con los APKs.</td><td>8</td></tr>
+    <tr><td>7</td><td>Servidor real y login</td><td>1.5 min</td><td>Comportamientos compensados y rutas protegidas.</td><td>9</td></tr>
+    <tr><td>8</td><td>Demo en vivo</td><td>2 min</td><td>Login → Talleres → Inscribirme → Mis inscripciones → Estado.</td><td>9.5</td></tr>
+    <tr><td>9</td><td>Problemas y cierre</td><td>1 min</td><td>Tabla de problemas y lecciones aprendidas.</td><td>10 y 13</td></tr>
+  </tbody>
+</table>
+<div class="callout imp"><b>Plan B para la demo.</b> Si el servidor o la red del salón fallan, la propia app lo muestra con “Sin conexión con el campus” y el Estado del servidor. Conviene tener a la mano las capturas del capítulo 9.5 y explicar que ese mensaje también es parte del manejo de errores.</div>
+
+<!-- ============================== 13 ============================== -->
+<h1 id="s13">13. Lecciones aprendidas</h1>
+<ul>
+  <li><b>Separar la capa de datos detrás de una interfaz</b> permitió avanzar sin el servidor y cambiar al real sin tocar pantallas.</li>
+  <li><b>Acordar el contrato antes de programar</b>, entre equipos y dentro del equipo, hizo posible trabajar en paralelo.</li>
+  <li><b>Probar en el APK, no solo en Expo Go</b>: el permiso de HTTP solo falla en la app de producción.</li>
+  <li><b>No confiar en que el servidor valide</b>: la app debe revisar los datos antes de enviarlos.</li>
+  <li><b>Automatizar desde el principio</b>: la revisión en cada cambio y el APK automático evitaron sorpresas en la entrega.</li>
+  <li><b>Tomar capturas en cada fase</b>: la bitácora de desarrollo se tuvo que reconstruir desde Git.</li>
+</ul>
+<h2 id="s13-1">13.1 Siguientes pasos</h2>
+<ul>
+  <li>Sustituir el padrón local por un servicio escolar real con contraseña en el servidor.</li>
+  <li>Migrar el servidor a HTTPS y retirar el permiso de tráfico sin cifrar.</li>
+  <li>Firmar el APK con una llave propia y publicar en Google Play (formato AAB).</li>
+  <li>Completar las capturas pendientes de la matriz en el celular.</li>
+</ul>
+
+<!-- ============================== ANEXO ============================== -->
+<h1 id="sA" class="nuevo-cap">Anexo A. Repositorio y comandos</h1>
+<table>
+  <thead><tr><th style="width:36%">Para…</th><th>Comando o ubicación</th></tr></thead>
+  <tbody>
+    <tr><td>Instalar dependencias</td><td><code>npm ci</code></td></tr>
+    <tr><td>Correr la app en Expo Go</td><td><code>npx expo start -c</code></td></tr>
+    <tr><td>Revisar el código</td><td><code>npx tsc --noEmit</code> · <code>npx expo lint</code> · <code>npx expo-doctor</code></td></tr>
+    <tr><td>Ver el historial del proyecto</td><td><code>git log --reverse --format='%h %ad %s' --date=short</code></td></tr>
+    <tr><td>Publicar una versión</td><td>Actions → Release → Run workflow (versión y <i>publicar</i>)</td></tr>
+    <tr><td>Decisiones técnicas</td><td><code>DECISIONES.md</code> (23 decisiones numeradas)</td></tr>
+    <tr><td>Documentación de entrega</td><td><code>docs/entrega/</code>: manuales, bitácora, diagramas y evidencias</td></tr>
+  </tbody>
+</table>
+
+<h1 id="sB">Anexo B. Glosario</h1>
+<table>
+  <thead><tr><th style="width:24%">Término</th><th>Significado</th></tr></thead>
+  <tbody>
+    <tr><td>APK</td><td>Archivo de instalación de una app Android.</td></tr>
+    <tr><td>Expo / React Native</td><td>Herramientas para crear apps móviles con JavaScript y TypeScript.</td></tr>
+    <tr><td>Endpoint o ruta</td><td>Dirección de un servicio que responde a una petición, por ejemplo <code>GET /talleres</code>.</td></tr>
+    <tr><td>Código HTTP</td><td>Número con el que el servidor indica el resultado: 201 creado, 404 no existe, 409 duplicado…</td></tr>
+    <tr><td>Datos de prueba (mock)</td><td>Implementación falsa que imita al servidor para probar la app sin él.</td></tr>
+    <tr><td>CI</td><td>Integración continua: revisiones automáticas en cada cambio del código.</td></tr>
+    <tr><td>Release</td><td>Versión publicada del proyecto con sus archivos descargables.</td></tr>
+    <tr><td>Pod</td><td>Unidad en la que Kubernetes ejecuta un servicio; si falla, se recrea sola.</td></tr>
+    <tr><td>Cleartext</td><td>Tráfico HTTP sin cifrar.</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>
